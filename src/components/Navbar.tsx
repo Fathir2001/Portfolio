@@ -29,18 +29,18 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <a href="#" className="text-2xl font-bold text-gray-900 dark:text-white">
-              RF
+            <a href="#" className="text-2xl text-gray-900 dark:text-white">
+              <b>Rifthan Fathir</b>
             </a>
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#about" className="nav-link">About</a>
-            <a href="#skills" className="nav-link">Skills</a>
-            <a href="#projects" className="nav-link">Projects</a>
-            <a href="#experience" className="nav-link">Experience</a>
-            <a href="#contact" className="nav-link">Contact</a>
+            <a href="#about" className="nav-link zoom-effect"> <b>About</b></a>
+            <a href="#skills" className="nav-link zoom-effect"> <b>Skills</b></a>
+            <a href="#projects" className="nav-link zoom-effect"><b>Projects</b></a>
+            <a href="#experience" className="nav-link zoom-effect"><b>Experience</b></a>
+            <a href="#contact" className="nav-link zoom-effect"><b>Contact</b></a>
             <button
               onClick={toggleTheme}
               className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
@@ -79,11 +79,11 @@ const Navbar = () => {
           className="md:hidden bg-white dark:bg-gray-900 shadow-lg"
         >
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <a href="#about" className="mobile-nav-link">About</a>
-            <a href="#skills" className="mobile-nav-link">Skills</a>
-            <a href="#projects" className="mobile-nav-link">Projects</a>
-            <a href="#experience" className="mobile-nav-link">Experience</a>
-            <a href="#contact" className="mobile-nav-link">Contact</a>
+            <a href="#about" className="mobile-nav-link zoom-effect">About</a>
+            <a href="#skills" className="mobile-nav-link zoom-effect">Skills</a>
+            <a href="#projects" className="mobile-nav-link zoom-effect">Projects</a>
+            <a href="#experience" className="mobile-nav-link zoom-effect">Experience</a>
+            <a href="#contact" className="mobile-nav-link zoom-effect">Contact</a>
             <button
               onClick={toggleTheme}
               className="w-full text-left px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"

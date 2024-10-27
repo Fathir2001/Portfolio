@@ -43,7 +43,7 @@ const skillCategories = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="skills" className="py-20 bg-gradient-to-br from-primary-900 to-primary-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -52,7 +52,7 @@ const Skills = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title">Skills & Expertise</h2>
+          <h2 className="section-title text-white">Skills & Expertise</h2>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12">

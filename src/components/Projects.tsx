@@ -37,7 +37,7 @@ const Projects = () => {
     : projects.filter(project => project.tags.includes(filter));
 
   return (
-    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="projects" className="py-20 bg-gradient-to-br from-primary-900 to-primary-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -46,7 +46,7 @@ const Projects = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title">Featured Projects</h2>
+          <h2 className="section-title text-white">Featured Projects</h2>
         </motion.div>
 
         <div className="flex justify-center gap-4 mb-12">

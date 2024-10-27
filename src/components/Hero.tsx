@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Github, Linkedin, Mail } from 'lucide-react';
+import { Code2, Github, Linkedin, Instagram, Facebook, Youtube, X } from 'lucide-react';
 
 const Hero = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -147,25 +147,25 @@ const Hero = () => {
           transition={{ duration: 1 }}
           className="space-y-8"
         >
-          <motion.div
+                    <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="backdrop-blur-lg bg-primary-900/30 rounded-2xl p-8 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] border border-primary-700/30"
+            className="backdrop-blur-lg bg-primary-900/70 rounded-2xl p-8 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] border border-primary-700/70"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-primary-700/50 shadow-xl"
+              className="w-40 h-40 mx-auto rounded-full overflow-hidden border-4 border-primary-700/50 shadow-xl"
             >
               <img
-                src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&q=80&w=200"
+                src="/images/profile.jpg"
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
             </motion.div>
-
+          
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -175,7 +175,7 @@ const Hero = () => {
               <h1 className="text-4xl md:text-6xl font-bold text-white">
                 Rifthan Fathir
               </h1>
-
+          
               <div className="flex items-center justify-center space-x-2 text-accent-400">
                 <Code2 className="w-6 h-6" />
                 <motion.span
@@ -187,27 +187,30 @@ const Hero = () => {
                   Full Stack | Mobile Developer
                 </motion.span>
               </div>
-
+          
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.9 }}
                 className="max-w-2xl mx-auto text-lg text-primary-200"
               >
-                Building digital solutions with passion and precision. Specialized in Flutter, React Native, and React Development.
+                Crafting seamless digital experiences with dedication and expertise. Specialized in Flutter and React for responsive, dynamic solutions.
               </motion.p>
             </motion.div>
-
+          
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 1.1 }}
-              className="flex justify-center space-x-6 mt-8"
+              className="flex justify-center space-x-3 sm:space-x-6 mt-8"
             >
               {[
-                { icon: Github, href: 'https://github.com/rifathanfathir' },
-                { icon: Linkedin, href: 'https://linkedin.com/in/rifathanfathir' },
-                { icon: Mail, href: 'mailto:rifathanfathir@gmail.com' }
+                { icon: Github, href: 'https://github.com/Fathir2001' },
+                { icon: Linkedin, href: 'https://www.linkedin.com/in/rifthan-fathir' },
+                { icon: Instagram, href: 'https://www.linkedin.com/in/rifthan-fathir' },
+                { icon: Facebook, href: 'https://www.facebook.com/rifthanfathir.professional' },
+                { icon: Youtube, href: 'https://www.youtube.com/@tdgamersfathirs962' },
+                { icon: X, href: 'https://x.com/rifthanfathir33' }
               ].map((item, index) => (
                 <motion.a
                   key={index}
@@ -223,12 +226,11 @@ const Hero = () => {
               ))}
             </motion.div>
           </motion.div>
-
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.5 }}
-            className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden sm:block"
           >
             <motion.div
               animate={{ y: [0, 10, 0] }}

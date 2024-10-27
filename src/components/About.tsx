@@ -1,11 +1,16 @@
+// About.tsx
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Code2, Coffee } from 'lucide-react';
+import AnimatedBackground from './AnimatedBackground';
+
 
 const About = () => {
   return (
-    <section id="about" className="py-20 bg-white dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="relative py-20 bg-white dark:bg-gray-900 overflow-hidden">
+      <AnimatedBackground />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-900/50 to-primary-800/50 backdrop-blur-[1px]" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -13,7 +18,7 @@ const About = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="section-title">About Me</h2>
+          <h2 className="section-title text-white">About Me</h2>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">

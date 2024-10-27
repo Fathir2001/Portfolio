@@ -25,7 +25,7 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-20 bg-white dark:bg-gray-900">
+    <section id="experience" className="py-20 bg-gradient-to-br from-primary-900 to-primary-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,7 +34,7 @@ const Experience = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title">Professional Experience</h2>
+          <h2 className="section-title text-white">Professional Experience</h2>
         </motion.div>
 
         <div className="relative">

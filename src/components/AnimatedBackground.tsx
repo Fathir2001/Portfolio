@@ -1,4 +1,3 @@
-// AnimatedBackground.tsx
 import React, { useEffect, useRef } from 'react';
 
 const AnimatedBackground: React.FC = () => {

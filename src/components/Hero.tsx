@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Code2, Github, Linkedin, Instagram, Facebook, Youtube, X } from 'lucide-react';
 
@@ -26,8 +26,8 @@ const Hero = () => {
 
       constructor() {
         this.size = Math.random() * 20 + 10;
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        this.x = Math.random() * canvas!.width;
+        this.y = Math.random() * canvas!.height;
         this.rotation = Math.random() * Math.PI * 2;
         this.speed = Math.random() * 0.2 + 0.1;
         this.color = '#3b82f6';
@@ -53,10 +53,12 @@ const Hero = () => {
         this.y += Math.sin(this.rotation) * 0.3;
         this.x += Math.cos(this.rotation) * 0.3;
 
-        if (this.x < -this.size) this.x = canvas.width + this.size;
-        if (this.x > canvas.width + this.size) this.x = -this.size;
-        if (this.y < -this.size) this.y = canvas.height + this.size;
-        if (this.y > canvas.height + this.size) this.y = -this.size;
+        if (canvas) {
+          if (this.x < -this.size) this.x = canvas.width + this.size;
+          if (this.x > canvas.width + this.size) this.x = -this.size;
+          if (this.y < -this.size) this.y = canvas.height + this.size;
+          if (this.y > canvas.height + this.size) this.y = -this.size;
+        }
       }
     }
 
@@ -140,14 +142,15 @@ const Hero = () => {
       
       <div className="absolute inset-0 bg-gradient-to-br from-primary-900/50 to-primary-800/50 backdrop-blur-[1px]" />
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-10 max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
           className="space-y-8"
+          style={{ boxShadow: '0 0 15px rgba(59, 130, 246, 0.5), 0 0 30px rgba(59, 130, 246, 0.3), 0 0 45px rgba(59, 130, 246, 0.2)' }}
         >
-                    <motion.div
+          <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -157,12 +160,13 @@ const Hero = () => {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="w-40 h-40 mx-auto rounded-full overflow-hidden border-4 border-primary-700/50 shadow-xl"
+              className="w-40 h-40 mx-auto rounded-full overflow-hidden border-4 border-accent-400 shadow-xl"
+              style={{ boxShadow: '0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.3), 0 0 45px rgba(255, 255, 255, 0.2)' }}
             >
               <img
                 src="/images/profile.jpg"
                 alt="Profile"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover rounded-full"
               />
             </motion.div>
           
@@ -202,7 +206,7 @@ const Hero = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 1.1 }}
-              className="flex justify-center space-x-3 sm:space-x-6 mt-8"
+              className="flex justify-center space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-6 mt-8"
             >
               {[
                 { icon: Github, href: 'https://github.com/Fathir2001' },

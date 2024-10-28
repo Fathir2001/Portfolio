@@ -10,10 +10,13 @@ const Contact = () => {
   });
 
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 3000); // Hide popup after 3 seconds
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -46,9 +49,14 @@ const Contact = () => {
             className="grid md:grid-cols-2 gap-8"
           >
             {/* Contact Form */}
-            <div className="backdrop-blur-lg bg-white/5 p-8 rounded-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)]">
+            <div className="backdrop-blur-lg bg-primary-900/70 p-8 rounded-2xl border border-primary-700/70 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)]">
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="relative">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="relative"
+                >
                   <div className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-200 ${
                     focusedField === 'name' ? 'text-accent-400' : 'text-primary-400'
                   }`}>
@@ -66,9 +74,14 @@ const Contact = () => {
                     required
                     className="w-full pl-12 pr-4 py-3 bg-primary-800/50 border border-primary-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-400/50 text-white placeholder-primary-400 transition-all duration-200"
                   />
-                </div>
+                </motion.div>
 
-                <div className="relative">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="relative"
+                >
                   <div className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-200 ${
                     focusedField === 'email' ? 'text-accent-400' : 'text-primary-400'
                   }`}>
@@ -86,9 +99,14 @@ const Contact = () => {
                     required
                     className="w-full pl-12 pr-4 py-3 bg-primary-800/50 border border-primary-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-400/50 text-white placeholder-primary-400 transition-all duration-200"
                   />
-                </div>
+                </motion.div>
 
-                <div className="relative">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                  className="relative"
+                >
                   <div className={`absolute left-3 top-4 transition-colors duration-200 ${
                     focusedField === 'message' ? 'text-accent-400' : 'text-primary-400'
                   }`}>
@@ -106,7 +124,7 @@ const Contact = () => {
                     rows={4}
                     className="w-full pl-12 pr-4 py-3 bg-primary-800/50 border border-primary-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-400/50 text-white placeholder-primary-400 transition-all duration-200 resize-none"
                   />
-                </div>
+                </motion.div>
 
                 <motion.button
                   whileHover={{ scale: 1.02 }}
@@ -127,9 +145,10 @@ const Contact = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="backdrop-blur-lg bg-white/5 p-6 rounded-xl border border-white/10"
+                className="backdrop-blur-lg bg-primary-900/70 p-6 rounded-2xl border border-primary-700/70 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)]"
+                style={{ boxShadow: '0 0 10px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.2), 0 0 30px rgba(59, 130, 246, 0.1)' }}
               >
-                <h3 className="text-xl font-semibold text-white mb-4">Contact Information</h3>
+                <h3 className="text-xl font-semibold text-accent-400 mb-4">Contact Information</h3>
                 <div className="space-y-4 text-primary-200">
                   <p className="flex items-center gap-3">
                     <Mail className="w-5 h-5 text-accent-400" />
@@ -141,15 +160,16 @@ const Contact = () => {
                   </p>
                 </div>
               </motion.div>
-
+              
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true }}
-                className="backdrop-blur-lg bg-white/5 p-6 rounded-xl border border-white/10"
+                className="backdrop-blur-lg bg-primary-900/70 p-6 rounded-2xl border border-primary-700/70 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)]"
+                style={{ boxShadow: '0 0 10px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.2), 0 0 30px rgba(59, 130, 246, 0.1)' }}
               >
-                <h3 className="text-xl font-semibold text-white mb-4">Response Time</h3>
+                <h3 className="text-xl font-semibold text-accent-400 mb-4">Response Time</h3>
                 <p className="text-primary-200">
                   I typically respond within 24 hours during business days.
                 </p>
@@ -158,6 +178,14 @@ const Contact = () => {
           </motion.div>
         </div>
       </div>
+
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <p className="text-lg font-semibold">Your Message Sent Successfully</p>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

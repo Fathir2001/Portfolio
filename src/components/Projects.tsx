@@ -5,7 +5,7 @@ const projects = [
   {
     title: 'TrekTempo',
     description: 'An innovative Travel App elevating the travel experience in Sri Lanka, complete with an admin website for seamless management.',
-    image: '/images/TravelApp.png',
+    image: '/portfolio/images/TravelApp.png',
     tags: ['Flutter(Dart)', 'NodeJS', 'ExpressJS', 'MongoDB', 'React', 'APIs'], 
     github: [
       { link: 'https://github.com/Fathir2001/TrekTempo', type: 'mobile', label: 'Mobile' },
@@ -16,7 +16,7 @@ const projects = [
   {
     title: 'Busify',
     description: 'Public Transport Service Tracking and Tickets Booking Application designed to streamline public transportation services in Sri Lanka.',
-    image: '/images/Busify.png',
+    image: '/portfolio/images/Busify.png',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'MySQL'],
     github: 'https://github.com/Fathir2001/Busify',
     // demo: 'https://task-manager.demo'
@@ -24,7 +24,7 @@ const projects = [
   {
     title: 'Foodie-Fix',
     description: 'This modern E-Commerce Website allows users to browse and order a variety of trendy food items and drinks online.',
-    image: '/images/Restaurent.png',
+    image: '/portfolio/images/Restaurent.png',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'MySQL'],
     github: 'https://github.com/Fathir2001/Foodie-Fix',
     // demo: 'https://social-dashboard.demo'

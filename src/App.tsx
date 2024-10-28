@@ -1,4 +1,3 @@
-import React from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import About from './components/About';
 import Skills from './components/Skills';

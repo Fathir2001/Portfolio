@@ -35,7 +35,7 @@ const About = () => {
             </p>
             <div className="flex items-center gap-2 text-gray-200 dark:text-purple-400 transform transition-transform duration-300 hover:scale-105">
               <Volume2 className="h-5 w-5 text-accent-400" />
-              <span className="text-lg font-medium">Fun fact: I speak fluent HTML, CSS, and JavaScript </span>
+              <span className="text-lg font-medium text-accent-400 dark:text-gray-300">Fun fact: I speak fluent HTML, CSS, and JavaScript </span>
               <Annoyed className="h-5 w-5 text-accent-400" />
             </div>
           </motion.div>

@@ -4,22 +4,16 @@ import { Briefcase, Calendar } from 'lucide-react';
 
 const experiences = [
   {
-    title: 'Senior Mobile Developer',
-    company: 'Tech Innovators Inc.',
-    period: '2022 - Present',
-    description: 'Leading mobile app development using Flutter and React Native. Managing team of developers and implementing best practices.'
+    title: 'Publicity committee member',
+    company: 'IEEE RAS Student Branch Chapter of the University of Moratuwa',
+    period: '2024 - Present',
+    description: 'Collaborated with a dynamic team to create engaging content, manage social media presence, and enhance brand visibility.'
   },
   {
-    title: 'Full Stack Developer',
-    company: 'Digital Solutions Ltd.',
-    period: '2020 - 2022',
-    description: 'Developed and maintained web applications using React and Node.js. Implemented responsive designs and RESTful APIs.'
-  },
-  {
-    title: 'Frontend Developer',
-    company: 'Creative Web Agency',
-    period: '2018 - 2020',
-    description: 'Created responsive websites and web applications using modern JavaScript frameworks and CSS preprocessors.'
+    title: 'President at Old Boys Association',
+    company: 'Puttalam, Kalpity, Kurinchipity Muslim Maha Vidyalaya',
+    period: '2021 - Present',
+    description: 'Led initiatives to strengthen connections, organized events to support school development, and fostered community engagement. Spearheaded projects benefiting both current students and the broader school community.'
   }
 ];
 
@@ -30,11 +24,11 @@ const Experience = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 2 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title text-white">Professional Experience</h2>
+          <h2 className="section-title text-white">Volunteering Experience</h2>
         </motion.div>
 
         <div className="relative">
@@ -44,33 +38,37 @@ const Experience = () => {
             {experiences.map((experience, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 2, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className={`relative flex items-start ${
                   index % 2 === 0 ? 'md:flex-row-reverse' : ''
                 }`}
               >
-                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900 absolute left-1/2 transform -translate-x-1/2">
-                  <Briefcase className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <div className="flex items-center justify-center w-10 h-10 rounded-full  dark:bg-purple-900 absolute left-1/2 transform -translate-x-1/2 z-10">
+                  <Briefcase className="w-5 h-5 text-accent-400 dark:text-accent-400 bg-white-100" />
                 </div>
 
                 <div className={`flex-1 ${
                   index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'
                 }`}>
-                  <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <div className="backdrop-blur-lg bg-primary-900/70 rounded-2xl p-8 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] border border-primary-700/70"
+                    style={{ boxShadow: '0 0 10px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.2), 0 0 30px rgba(59, 130, 246, 0.1)' }}
+                  >
+                    <h3 className="text-xl font-semibold text-accent-400 dark:text-white">
                       {experience.title}
                     </h3>
-                    <p className="text-purple-600 dark:text-purple-400 font-medium mt-1">
+                    <p className="text-white dark:text-purple-400 font-medium mt-1">
                       {experience.company}
                     </p>
-                    <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 mt-2">
+                    <div className={`flex items-center gap-2 text-white dark:text-gray-400 mt-2 ${
+                      index === 1 ? 'justify-end' : ''
+                    }`}>
                       <Calendar className="w-4 h-4" />
                       <span>{experience.period}</span>
                     </div>
-                    <p className="mt-4 text-gray-600 dark:text-gray-300">
+                    <p className="mt-4 text-gray-400 dark:text-gray-300">
                       {experience.description}
                     </p>
                   </div>

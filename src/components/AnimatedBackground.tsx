@@ -31,15 +31,16 @@ const AnimatedBackground: React.FC = () => {
     });
 
     class Particle {
-      x: number;
-      y: number;
-      size: number;
-      color: string;
-      opacity: number;
-      speed: number;
-      angle: number;
+      x!: number;
+      y!: number;
+      size!: number;
+      color!: string;
+      opacity!: number;
+      speed!: number;
+      angle!: number;
 
       constructor() {
+        if (!canvas) return;
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 2 + 1;
@@ -75,6 +76,7 @@ const AnimatedBackground: React.FC = () => {
         }
 
         // Wrap particles around screen edges
+        if (!canvas) return;
         if (this.x > canvas.width) this.x = 0;
         if (this.x < 0) this.x = canvas.width;
         if (this.y > canvas.height) this.y = 0;

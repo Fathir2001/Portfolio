@@ -211,7 +211,7 @@ const Hero = () => {
               {[
                 { icon: Github, href: 'https://github.com/Fathir2001' },
                 { icon: Linkedin, href: 'https://www.linkedin.com/in/rifthan-fathir' },
-                { icon: Instagram, href: 'https://www.linkedin.com/in/rifthan-fathir' },
+                { icon: Instagram, href: 'https://www.instagram.com/rifthan_fathir' },
                 { icon: Facebook, href: 'https://www.facebook.com/rifthanfathir.professional' },
                 { icon: Youtube, href: 'https://www.youtube.com/@tdgamersfathirs962' },
                 { icon: X, href: 'https://x.com/rifthanfathir33' }

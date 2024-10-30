@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Github, Linkedin, Instagram, Facebook, Youtube, X } from 'lucide-react';
+import { Code2, Github, Linkedin, Instagram, Facebook, Youtube, X, Eye } from 'lucide-react';
 
 const Hero = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -154,7 +154,7 @@ const Hero = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="backdrop-blur-lg bg-primary-900/70 rounded-2xl p-8 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] border border-primary-700/70"
+            className="backdrop-blur-lg bg-primary-900/70 rounded-2xl p-8 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] border border-primary-700/70 relative"
           >
             <motion.div
               initial={{ scale: 0 }}
@@ -229,6 +229,7 @@ const Hero = () => {
                 </motion.a>
               ))}
             </motion.div>
+            <Eye className="absolute top-4 right-4 w-6 h-6 text-accent-400" />
           </motion.div>
           <motion.div
             initial={{ opacity: 0 }}

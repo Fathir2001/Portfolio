@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Mail, User, MessageSquare } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,17 +12,41 @@ const Contact = () => {
 
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setShowPopup(true);
-    setTimeout(() => setShowPopup(false), 3000); // Hide popup after 3 seconds
+    const newErrors = {
+      name: formData.name ? '' : 'Name is required',
+      email: formData.email ? '' : 'Email is required',
+      message: formData.message ? '' : 'Message is required'
+    };
+
+    setErrors(newErrors);
+
+    const hasErrors = Object.values(newErrors).some(error => error !== '');
+    if (hasErrors) {
+      return;
+    }
+
+    emailjs.send('service_oyyto7g', 'template_ewlzi49', formData, 'Glai-R1daTW_8_mbt')
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setShowPopup(true);
+        setTimeout(() => setShowPopup(false), 3000); // Hide popup after 3 seconds
+      }, (error) => {
+        console.log('FAILED...', error);
+      });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    setErrors(prev => ({ ...prev, [name]: '' }));
   };
 
   return (
@@ -74,6 +99,7 @@ const Contact = () => {
                     required
                     className="w-full pl-12 pr-4 py-3 bg-primary-800/50 border border-primary-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-400/50 text-white placeholder-primary-400 transition-all duration-200"
                   />
+                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                 </motion.div>
 
                 <motion.div
@@ -99,6 +125,7 @@ const Contact = () => {
                     required
                     className="w-full pl-12 pr-4 py-3 bg-primary-800/50 border border-primary-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-400/50 text-white placeholder-primary-400 transition-all duration-200"
                   />
+                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                 </motion.div>
 
                 <motion.div
@@ -124,6 +151,7 @@ const Contact = () => {
                     rows={4}
                     className="w-full pl-12 pr-4 py-3 bg-primary-800/50 border border-primary-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-400/50 text-white placeholder-primary-400 transition-all duration-200 resize-none"
                   />
+                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                 </motion.div>
 
                 <motion.button

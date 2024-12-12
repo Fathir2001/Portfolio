@@ -1,9 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Github, Linkedin, Instagram, Facebook, Youtube, X, Eye } from 'lucide-react';
+import { Code2, Github, Linkedin, Instagram, Facebook, Youtube, X } from 'lucide-react';
 
 const Hero = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [showScrollText, setShowScrollText] = useState(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -129,8 +130,21 @@ const Hero = () => {
       canvas.height = window.innerHeight;
     };
 
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollText(false);
+      } else {
+        setShowScrollText(true);
+      }
+    };
+
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
@@ -229,29 +243,31 @@ const Hero = () => {
                 </motion.a>
               ))}
             </motion.div>
-            <Eye className="absolute top-4 right-4 w-6 h-6 text-accent-400" />
+            
           </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.5 }}
-            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden sm:block"
-          >
+          {showScrollText && (
             <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="text-primary-400"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1.5 }}
+              className="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden sm:block"
             >
-              <span className="block text-sm text-center mb-2">Scroll to explore</span>
-              <div className="w-6 h-10 border-2 border-primary-400 rounded-full mx-auto flex justify-center">
-                <motion.div
-                  animate={{ y: [0, 12, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="w-1 h-3 bg-primary-400 rounded-full mt-2"
-                />
-              </div>
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="text-primary-400"
+              >
+                <span className="block text-sm text-center mb-2">Scroll to explore</span>
+                <div className="w-6 h-10 border-2 border-primary-400 rounded-full mx-auto flex justify-center">
+                  <motion.div
+                    animate={{ y: [0, 12, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="w-1 h-3 bg-primary-400 rounded-full mt-2"
+                  />
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          )}
         </motion.div>
       </div>
     </section>

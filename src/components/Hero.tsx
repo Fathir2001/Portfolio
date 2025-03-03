@@ -184,7 +184,7 @@ const Hero = () => {
               />
             </motion.div>
           
-            <motion.div
+                        <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
@@ -193,7 +193,7 @@ const Hero = () => {
               <h1 className="text-4xl md:text-6xl font-bold text-white">
                 Rifthan Fathir
               </h1>
-          
+            
               <div className="flex items-center justify-center space-x-2 text-accent-400">
                 <Code2 className="w-6 h-6" />
                 <motion.span
@@ -205,7 +205,7 @@ const Hero = () => {
                   Full Stack | Mobile Developer
                 </motion.span>
               </div>
-          
+            
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -213,6 +213,15 @@ const Hero = () => {
                 className="max-w-2xl mx-auto text-lg text-primary-200"
               >
                 Crafting seamless digital experiences with dedication and expertise. Specialized in Flutter and React for responsive, dynamic solutions.
+              </motion.p>
+            
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.1 }}
+                className="text-accent-400 text-lg font-medium"
+              >
+                Currently working as a Software Engineering Intern at Imara Software Solutions PVT LTD
               </motion.p>
             </motion.div>
           

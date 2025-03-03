@@ -11,7 +11,20 @@ const projects = [
       { link: 'https://github.com/Fathir2001/TrekTempo', type: 'mobile', label: 'Mobile' },
       { link: 'https://github.com/Fathir2001/TrekTempo-Admin-Website', type: 'website', label: 'Website' }
     ],
-    // demo: 'https://ecommerce-app.demo' 
+  },
+  {
+    title: 'EcoRoute',
+    description: 'An IoT-powered Weather Monitoring App delivering real-time environmental insights through sensor driven data visualization.',
+    image: '/Portfolio/images/Weather App.jpg',
+    tags: ['IoT', 'Arduino', 'Flutter', 'NodeJS', 'ExpressJS', 'MongoDB' ],
+    github: 'https://github.com/Fathir2001/Weather_App',
+  },
+  {
+    title: 'R.F Stores',
+    description: 'A feature-rich grocery store app delivering fresh produce, snacks, and essentials with a seamless shopping experience.',
+    image: '/Portfolio/images/RF Stores.jpg',
+    tags: ['Flutter', 'NodeJS', 'ExpressJS', 'MongoDB'],
+    github: 'https://github.com/Fathir2001/RF-Stores',
   },
   {
     title: 'Busify',
@@ -19,7 +32,6 @@ const projects = [
     image: '/Portfolio/images/Busify.png',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'MySQL'],
     github: 'https://github.com/Fathir2001/Busify',
-    // demo: 'https://task-manager.demo'
   },
   {
     title: 'Foodie-Fix',
@@ -27,7 +39,6 @@ const projects = [
     image: '/Portfolio/images/Restaurent.png',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'MySQL'],
     github: 'https://github.com/Fathir2001/Foodie-Fix',
-    // demo: 'https://social-dashboard.demo'
   }
 ];
 

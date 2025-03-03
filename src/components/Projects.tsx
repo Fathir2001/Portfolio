@@ -3,7 +3,7 @@ import { Github } from 'lucide-react';
 
 const projects = [
   {
-    title: 'TrekTempo',
+    title: 'TrackTempo',
     description: 'An innovative Travel App elevating the travel experience in Sri Lanka, complete with an admin website for seamless management.',
     image: '/Portfolio/images/TravelApp.png',
     tags: ['Flutter(Dart)', 'NodeJS', 'ExpressJS', 'MongoDB', 'React', 'APIs'], 

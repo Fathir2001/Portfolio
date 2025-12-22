@@ -5,7 +5,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-20 bg-gradient-to-br from-primary-900 to-primary-800"
+      className="py-20 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-primary-900 dark:to-primary-800"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -15,7 +15,9 @@ const About = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="section-title text-white">About Me</h2>
+          <h2 className="section-title text-gray-900 dark:text-white">
+            About Me
+          </h2>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -26,34 +28,41 @@ const About = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <p className="text-lg text-accent-400 dark:text-gray-300 leading-relaxed">
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
               I'm a passionate{" "}
-              <span className="font-bold text-white">Full Stack Developer</span>{" "}
+              <span className="font-bold text-gray-900 dark:text-white">
+                Full Stack Developer
+              </span>{" "}
               with expertise in{" "}
-              <span className="font-bold text-white">
+              <span className="font-bold text-gray-900 dark:text-white">
                 Mobile and Web Development
               </span>
               , specializing in building seamless experiences with{" "}
-              <span className="font-bold text-white">Flutter</span> and{" "}
-              <span className="font-bold text-white">React</span>. Currently
-              working as an{" "}
-              <span className="font-bold text-white">
+              <span className="font-bold text-gray-900 dark:text-white">
+                Flutter
+              </span>{" "}
+              and{" "}
+              <span className="font-bold text-gray-900 dark:text-white">
+                React
+              </span>
+              . Currently working as an{" "}
+              <span className="font-bold text-gray-900 dark:text-white">
                 Associate Software Engineer
               </span>{" "}
               at{" "}
-              <span className="font-bold text-white">
+              <span className="font-bold text-gray-900 dark:text-white">
                 Imara Software Solutions PVT LTD
               </span>
               , where I contribute to innovative projects and grow my technical
               expertise.
             </p>
-            <p className="text-lg text-accent-400 dark:text-gray-300 leading-relaxed">
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
               As an{" "}
-              <span className="font-bold text-white">
+              <span className="font-bold text-gray-900 dark:text-white">
                 Information Technology student
               </span>{" "}
               at the{" "}
-              <span className="font-bold text-white">
+              <span className="font-bold text-gray-900 dark:text-white">
                 Institute of Technology University of Moratuwa
               </span>
               , I'm constantly learning and exploring new technologies. My goal
@@ -64,13 +73,13 @@ const About = () => {
             </p>
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="flex items-center gap-2 text-gray-200 dark:text-purple-400 bg-primary-800/50 p-4 rounded-xl border border-accent-400/30"
+              className="flex items-center gap-2 bg-blue-100 dark:bg-primary-800/50 p-4 rounded-xl border border-blue-300 dark:border-accent-400/30"
             >
-              <Volume2 className="h-6 w-6 text-accent-400" />
-              <span className="text-lg font-medium text-accent-400 dark:text-gray-300">
+              <Volume2 className="h-6 w-6 text-blue-600 dark:text-accent-400" />
+              <span className="text-lg font-medium text-gray-800 dark:text-gray-300">
                 Fun fact: I speak fluent HTML, CSS, and JavaScript{" "}
               </span>
-              <Annoyed className="h-6 w-6 text-accent-400" />
+              <Annoyed className="h-6 w-6 text-blue-600 dark:text-accent-400" />
             </motion.div>
           </motion.div>
 
@@ -93,12 +102,12 @@ const About = () => {
               }}
             >
               {/* Animated gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-purple-500/5 to-blue-500/0 group-hover:via-purple-500/10 transition-all duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-blue-500/0 group-hover:via-blue-500/10 transition-all duration-500" />
 
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-6">
-                  <Code2 className="h-8 w-8 text-accent-400 dark:text-purple-400" />
-                  <h3 className="text-2xl font-semibold text-accent-400 dark:text-white group-hover:text-accent-300 transition-colors duration-300">
+                  <Code2 className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors duration-300">
                     Quick Overview
                   </h3>
                 </div>

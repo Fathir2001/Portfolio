@@ -63,7 +63,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-20 bg-gradient-to-br from-primary-900 to-primary-800"
+      className="py-20 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-primary-900 dark:to-primary-800"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -73,10 +73,10 @@ const Contact = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Get in Touch
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
             Have a project in mind or want to collaborate? Let's create
             something amazing together!
           </p>
@@ -102,8 +102,8 @@ const Contact = () => {
                   <div
                     className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-200 ${
                       focusedField === "name"
-                        ? "text-accent-400"
-                        : "text-primary-400"
+                        ? "text-blue-600 dark:text-blue-400"
+                        : "text-gray-400 dark:text-primary-400"
                     }`}
                   >
                     <User className="w-5 h-5" />
@@ -134,8 +134,8 @@ const Contact = () => {
                   <div
                     className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-200 ${
                       focusedField === "email"
-                        ? "text-accent-400"
-                        : "text-primary-400"
+                        ? "text-blue-600 dark:text-blue-400"
+                        : "text-gray-400 dark:text-primary-400"
                     }`}
                   >
                     <Mail className="w-5 h-5" />
@@ -166,8 +166,8 @@ const Contact = () => {
                   <div
                     className={`absolute left-3 top-4 transition-colors duration-200 ${
                       focusedField === "message"
-                        ? "text-accent-400"
-                        : "text-primary-400"
+                        ? "text-blue-600 dark:text-blue-400"
+                        : "text-gray-400 dark:text-primary-400"
                     }`}
                   >
                     <MessageSquare className="w-5 h-5" />
@@ -216,16 +216,16 @@ const Contact = () => {
                     "0 0 10px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.2), 0 0 30px rgba(59, 130, 246, 0.1)",
                 }}
               >
-                <h3 className="text-xl font-semibold text-accent-400 mb-4">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                   Contact Information
                 </h3>
-                <div className="space-y-4 text-primary-200">
+                <div className="space-y-4 text-gray-700 dark:text-primary-200">
                   <p className="flex items-center gap-3">
-                    <Mail className="w-5 h-5 text-accent-400" />
+                    <Mail className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                     rifathanfathir@gmail.com
                   </p>
                   <p className="flex items-center gap-3">
-                    <User className="w-5 h-5 text-accent-400" />
+                    <User className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                     Available for freelance work
                   </p>
                 </div>
@@ -242,10 +242,10 @@ const Contact = () => {
                     "0 0 10px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.2), 0 0 30px rgba(59, 130, 246, 0.1)",
                 }}
               >
-                <h3 className="text-xl font-semibold text-accent-400 mb-4">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                   Response Time
                 </h3>
-                <p className="text-primary-200">
+                <p className="text-gray-700 dark:text-primary-200">
                   I typically respond within 24 hours during business days.
                 </p>
               </motion.div>

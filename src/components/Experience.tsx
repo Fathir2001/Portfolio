@@ -45,7 +45,7 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className="py-20 bg-gradient-to-br from-primary-900 to-primary-800"
+      className="py-20 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-primary-900 dark:to-primary-800"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -55,8 +55,10 @@ const Experience = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title text-white">Professional Experience</h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto mt-4">
+          <h2 className="section-title text-gray-900 dark:text-white">
+            Professional Experience
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto mt-4">
             My journey of growth through work and volunteering
           </p>
         </motion.div>
@@ -99,7 +101,7 @@ const Experience = () => {
                     }}
                   >
                     {/* Animated gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-purple-500/5 to-blue-500/0 group-hover:via-purple-500/10 transition-all duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-blue-500/0 group-hover:via-blue-500/10 transition-all duration-500" />
 
                     {/* Type badge */}
                     <motion.div
@@ -119,10 +121,10 @@ const Experience = () => {
                     </motion.div>
 
                     <div className="relative z-10">
-                      <h3 className="text-xl font-semibold text-accent-400 dark:text-white group-hover:text-accent-300 transition-colors duration-300">
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors duration-300">
                         {experience.title}
                       </h3>
-                      <p className="text-white dark:text-purple-400 font-medium mt-1">
+                      <p className="text-gray-700 dark:text-gray-300 font-medium mt-1">
                         {experience.company}
                       </p>
                       <div

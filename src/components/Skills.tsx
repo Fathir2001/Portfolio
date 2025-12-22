@@ -78,8 +78,10 @@ const Skills = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title text-white">Skills & Expertise</h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto mt-4">
+          <h2 className="section-title text-gray-900 dark:text-white">
+            Skills & Expertise
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto mt-4">
             Technologies and tools I work with to bring ideas to life
           </p>
         </motion.div>
@@ -100,7 +102,7 @@ const Skills = () => {
               }}
             >
               {/* Animated gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-purple-500/5 to-blue-500/0 group-hover:via-purple-500/10 transition-all duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-blue-500/5 to-blue-500/0 group-hover:via-blue-500/10 transition-all duration-500" />
 
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-6">
@@ -111,7 +113,7 @@ const Skills = () => {
                   >
                     {category.icon}
                   </motion.span>
-                  <h3 className="text-xl font-semibold text-accent-400 dark:text-white group-hover:text-accent-300 transition-colors duration-300">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors duration-300">
                     {category.title}
                   </h3>
                 </div>
@@ -133,7 +135,7 @@ const Skills = () => {
                           whileInView={{ opacity: 1 }}
                           transition={{ duration: 0.5, delay: 0.5 }}
                           viewport={{ once: true }}
-                          className="text-accent-400 dark:text-purple-400 font-semibold"
+                          className="text-blue-600 dark:text-blue-400 font-semibold"
                         >
                           {skill.progress}%
                         </motion.span>

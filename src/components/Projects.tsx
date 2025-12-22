@@ -59,7 +59,7 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="py-20 bg-gradient-to-br from-primary-900 to-primary-800"
+      className="py-20 bg-white dark:bg-gradient-to-br dark:from-primary-900 dark:to-primary-800"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -69,8 +69,10 @@ const Projects = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title text-white">Featured Projects</h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto mt-4">
+          <h2 className="section-title text-gray-900 dark:text-white">
+            Featured Projects
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto mt-4">
             Showcasing my creative solutions and technical expertise
           </p>
         </motion.div>
@@ -129,7 +131,7 @@ const Projects = () => {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 text-sm font-medium bg-[#121a2d] text-accent-400 dark:bg-purple-900 text-accent-400 dark:text-purple-400 rounded-full"
+                      className="px-3 py-1 text-sm font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full"
                     >
                       {tag}
                     </span>

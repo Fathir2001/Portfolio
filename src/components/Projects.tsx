@@ -87,54 +87,60 @@ const Projects = () => {
               viewport={{ once: true, margin: "-50px" }}
               className="project-card group"
             >
-              <div className="relative overflow-hidden">
+              <div className="relative overflow-hidden rounded-t-xl">
                 <img
                   src={project.image}
                   alt={project.title}
                   loading="lazy"
-                  className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-300"
+                  className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center space-x-4">
                   {Array.isArray(project.github) ? (
                     project.github.map((repo, idx) => (
-                      <a
+                      <motion.a
                         key={idx}
                         href={repo.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 bg-white rounded-full hover:bg-gray-100 transition-colors duration-200 flex items-center space-x-2"
+                        whileHover={{ scale: 1.1, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="px-4 py-2 backdrop-blur-md bg-white/20 border border-white/30 rounded-lg hover:bg-white/30 transition-all duration-200 flex items-center space-x-2 text-white font-medium"
                       >
-                        <Github className="w-6 h-6 text-gray-900" />
-                        <span className="text-gray-900">{repo.label}</span>
-                      </a>
+                        <Github className="w-5 h-5" />
+                        <span>{repo.label}</span>
+                      </motion.a>
                     ))
                   ) : (
-                    <a
+                    <motion.a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 bg-white rounded-full hover:bg-gray-100 transition-colors duration-200"
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="p-3 backdrop-blur-md bg-white/20 border border-white/30 rounded-full hover:bg-white/30 transition-all duration-200"
                     >
-                      <Github className="w-6 h-6 text-gray-900" />
-                    </a>
+                      <Github className="w-6 h-6 text-white" />
+                    </motion.a>
                   )}
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-black dark:text-white mb-2">
+              <div className="p-6 relative">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <h3 className="text-xl font-bold text-black dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                   {project.title}
                 </h3>
-                <p className="text-gray-800 dark:text-gray-300 mb-4">
+                <p className="text-gray-800 dark:text-gray-300 mb-4 line-clamp-2">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
-                    <span
+                    <motion.span
                       key={tag}
-                      className="px-3 py-1 text-sm font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full"
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      className="px-3 py-1 text-xs font-semibold bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 dark:from-blue-900/30 dark:to-purple-900/30 dark:text-blue-300 rounded-full border border-blue-200/50 dark:border-blue-700/50 hover:shadow-md transition-all duration-200"
                     >
                       {tag}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
               </div>

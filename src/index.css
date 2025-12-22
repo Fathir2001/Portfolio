@@ -19,11 +19,12 @@
 
   .nav-link {
     @apply text-primary-600 dark:text-primary-300 hover:text-accent-600 dark:hover:text-accent-400 transition-all duration-300 relative;
+    letter-spacing: 0.5px;
   }
 
   .nav-link::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent-400;
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500;
     transition: width 0.3s ease;
   }
 
@@ -214,4 +215,51 @@ html {
 .backdrop-blur-custom {
   backdrop-filter: blur(8px) saturate(150%);
   -webkit-backdrop-filter: blur(8px) saturate(150%);
+}
+
+/* Circular Progress Indicator */
+@keyframes circular-progress {
+  from {
+    stroke-dashoffset: 251.2;
+  }
+}
+
+.circular-progress {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* Back to Top Button */
+.back-to-top {
+  @apply fixed bottom-8 right-8 w-12 h-12 rounded-full backdrop-blur-md bg-blue-500/90 dark:bg-blue-600/90 text-white shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 flex items-center justify-center z-40;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.back-to-top:hover {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+}
+
+/* Micro-interactions */
+.icon-hover {
+  @apply transition-all duration-300;
+}
+
+.icon-hover:hover {
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+  transform: translateY(-2px) scale(1.1);
+}
+
+/* Enhanced card shadows */
+.card-elegant {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 10px 15px -3px rgba(59, 130, 246, 0.1),
+    0 4px 6px -2px rgba(59, 130, 246, 0.05);
+}
+
+.card-elegant:hover {
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.05),
+    0 20px 25px -5px rgba(59, 130, 246, 0.2),
+    0 10px 10px -5px rgba(168, 85, 247, 0.1);
 }

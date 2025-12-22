@@ -81,7 +81,7 @@ const Experience = () => {
                 <motion.div
                   whileHover={{ scale: 1.2, rotate: 360 }}
                   transition={{ duration: 0.5 }}
-                  className="flex items-center justify-center w-14 h-14 rounded-full dark:bg-purple-900 absolute left-1/2 transform -translate-x-1/2 z-10 bg-primary-800 border-4 border-primary-900 shadow-lg"
+                  className="flex items-center justify-center w-14 h-14 rounded-full bg-blue-500 dark:bg-purple-900 absolute left-1/2 transform -translate-x-1/2 z-10 border-4 border-white dark:border-primary-900 shadow-lg"
                 >
                   <span className="text-2xl">{experience.icon}</span>
                 </motion.div>
@@ -94,7 +94,7 @@ const Experience = () => {
                   <motion.div
                     whileHover={{ scale: 1.02, y: -5 }}
                     transition={{ duration: 0.3 }}
-                    className="backdrop-blur-lg bg-primary-900/70 rounded-2xl p-8 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] border border-primary-700/70 hover:border-accent-400/50 transition-all duration-500 group relative overflow-hidden"
+                    className="backdrop-blur-lg bg-white/80 dark:bg-primary-900/70 rounded-2xl p-8 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] border border-gray-200 dark:border-primary-700/70 hover:border-blue-400 dark:hover:border-accent-400/50 transition-all duration-500 group relative overflow-hidden"
                     style={{
                       boxShadow:
                         "0 0 15px rgba(59, 130, 246, 0.5), 0 0 30px rgba(59, 130, 246, 0.3), 0 0 45px rgba(59, 130, 246, 0.1)",
@@ -111,8 +111,8 @@ const Experience = () => {
                       viewport={{ once: true }}
                       className={`inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3 ${
                         experience.type === "work"
-                          ? "bg-green-500/20 text-green-300 border border-green-500/30"
-                          : "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                          ? "bg-green-500/20 text-green-700 dark:text-green-300 border border-green-500/50 dark:border-green-500/30"
+                          : "bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-500/50 dark:border-blue-500/30"
                       }`}
                     >
                       {experience.type === "work"
@@ -128,14 +128,14 @@ const Experience = () => {
                         {experience.company}
                       </p>
                       <div
-                        className={`flex items-center gap-2 text-white dark:text-gray-400 mt-2 ${
+                        className={`flex items-center gap-2 text-gray-600 dark:text-gray-400 mt-2 ${
                           index === 1 ? "justify-end" : ""
                         }`}
                       >
                         <Calendar className="w-4 h-4" />
                         <span>{experience.period}</span>
                       </div>
-                      <p className="mt-4 text-gray-400 dark:text-gray-300">
+                      <p className="mt-4 text-gray-700 dark:text-gray-300">
                         {experience.description}
                       </p>
                     </div>

@@ -69,7 +69,7 @@ const Education = () => {
               viewport={{ once: true }}
               className="group"
             >
-              <div className="backdrop-blur-lg bg-primary-900/70 rounded-2xl p-8 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] border border-primary-700/70 hover:border-accent-400/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl relative overflow-hidden">
+              <div className="backdrop-blur-lg bg-white/80 dark:bg-primary-900/70 rounded-2xl p-8 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] border border-gray-200 dark:border-primary-700/70 hover:border-blue-400 dark:hover:border-accent-400/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl relative overflow-hidden">
                 {/* Animated gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-blue-500/0 group-hover:via-blue-500/10 transition-all duration-500" />
 
@@ -87,10 +87,10 @@ const Education = () => {
                         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors duration-300">
                           {edu.degree}
                         </h3>
-                        <p className="text-lg text-white font-semibold mb-1">
+                        <p className="text-lg text-gray-800 dark:text-white font-semibold mb-1">
                           {edu.institution}
                         </p>
-                        <p className="text-gray-300 dark:text-gray-400 text-sm">
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">
                           📍 {edu.location}
                         </p>
                       </div>
@@ -111,7 +111,7 @@ const Education = () => {
                   <div className="mt-6 space-y-3">
                     <div className="flex items-center gap-2 mb-4">
                       <Award className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                      <span className="text-white font-semibold">
+                      <span className="text-gray-900 dark:text-white font-semibold">
                         Key Highlights
                       </span>
                     </div>
@@ -130,7 +130,7 @@ const Education = () => {
                         >
                           ✦
                         </motion.div>
-                        <p className="text-gray-300 dark:text-gray-300 group-hover/item:text-white transition-colors duration-300">
+                        <p className="text-gray-700 dark:text-gray-300 group-hover/item:text-gray-900 dark:group-hover/item:text-white transition-colors duration-300">
                           {achievement}
                         </p>
                       </motion.div>

@@ -24,9 +24,10 @@ const Navbar = () => {
       transition={{ duration: 0.5 }}
       className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg"
+          ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-lg border-b border-gray-200/50 dark:border-gray-700/50"
           : "bg-transparent"
       }`}
+      style={isScrolled ? { boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)" } : {}}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">

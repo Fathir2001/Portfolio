@@ -257,35 +257,48 @@ const Hero = () => {
               className="flex justify-center space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-6 mt-8"
             >
               {[
-                { icon: Github, href: "https://github.com/Fathir2001" },
+                {
+                  icon: Github,
+                  href: "https://github.com/Fathir2001",
+                  color: "hover:from-gray-700 hover:to-gray-900",
+                },
                 {
                   icon: Linkedin,
                   href: "https://www.linkedin.com/in/rifthan-fathir",
+                  color: "hover:from-blue-600 hover:to-blue-700",
                 },
                 {
                   icon: Instagram,
                   href: "https://www.instagram.com/rifthan_fathir",
+                  color: "hover:from-pink-500 hover:to-purple-600",
                 },
                 {
                   icon: Facebook,
                   href: "https://www.facebook.com/rifthanfathir.professional",
+                  color: "hover:from-blue-500 hover:to-blue-600",
                 },
                 {
                   icon: Youtube,
                   href: "https://www.youtube.com/@tdgamersfathirs962",
+                  color: "hover:from-red-500 hover:to-red-600",
                 },
-                { icon: X, href: "https://x.com/rifthanfathir33" },
+                {
+                  icon: X,
+                  href: "https://x.com/rifthanfathir33",
+                  color: "hover:from-gray-700 hover:to-black",
+                },
               ].map((item, index) => (
                 <motion.a
                   key={index}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.2, y: -5 }}
+                  whileTap={{ scale: 0.9 }}
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full backdrop-blur-md bg-primary-800/30 border border-primary-700/30 shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-accent-600/20"
+                  className={`group relative p-3 rounded-full backdrop-blur-md bg-white/10 dark:bg-primary-800/30 border border-white/20 dark:border-primary-700/30 shadow-lg hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-transparent ${item.color}`}
                 >
-                  <item.icon className="w-6 h-6 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300" />
+                  <item.icon className="w-6 h-6 text-blue-600 dark:text-blue-400 group-hover:text-white transition-colors duration-300 relative z-10" />
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-300" />
                 </motion.a>
               ))}
             </motion.div>

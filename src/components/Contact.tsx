@@ -91,7 +91,11 @@ const Contact = () => {
             className="grid md:grid-cols-2 gap-8"
           >
             {/* Contact Form */}
-            <div className="backdrop-blur-lg bg-primary-900/70 p-8 rounded-2xl border border-primary-700/70 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)]">
+            <motion.div
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.3 }}
+              className="backdrop-blur-lg bg-primary-900/70 p-8 rounded-2xl border border-primary-700/70 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] hover:shadow-[0_12px_40px_0_rgba(59,130,246,0.2)] hover:border-blue-500/50 transition-all duration-300"
+            >
               <form onSubmit={handleSubmit} className="space-y-6">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
@@ -192,25 +196,26 @@ const Contact = () => {
                 </motion.div>
 
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
                   type="submit"
-                  className="w-full flex justify-center items-center gap-2 px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent-400/50"
+                  className="w-full flex justify-center items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/50 shadow-lg hover:shadow-xl"
                 >
                   <Send className="w-5 h-5" />
                   Send Message
                 </motion.button>
               </form>
-            </div>
+            </motion.div>
 
             {/* Contact Info */}
             <div className="space-y-8">
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
+                whileHover={{ y: -5 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="backdrop-blur-lg bg-primary-900/70 p-6 rounded-2xl border border-primary-700/70 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)]"
+                className="backdrop-blur-lg bg-white/80 dark:bg-primary-900/70 p-6 rounded-2xl border border-gray-200 dark:border-primary-700/70 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] hover:shadow-[0_12px_40px_0_rgba(59,130,246,0.2)] hover:border-blue-400 dark:hover:border-blue-500/50 transition-all duration-300"
                 style={{
                   boxShadow:
                     "0 0 10px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.2), 0 0 30px rgba(59, 130, 246, 0.1)",
@@ -236,7 +241,7 @@ const Contact = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true }}
-                className="backdrop-blur-lg bg-primary-900/70 p-6 rounded-2xl border border-primary-700/70 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)]"
+                className="backdrop-blur-lg bg-white/80 dark:bg-primary-900/70 p-6 rounded-2xl border border-gray-200 dark:border-primary-700/70 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)]"
                 style={{
                   boxShadow:
                     "0 0 10px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.2), 0 0 30px rgba(59, 130, 246, 0.1)",

@@ -95,7 +95,7 @@ const About = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
               whileHover={{ scale: 1.03, y: -5 }}
-              className="backdrop-blur-lg bg-primary-900/70 rounded-2xl p-8 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] border border-primary-700/70 hover:border-accent-400/50 transition-all duration-500 group relative overflow-hidden"
+              className="backdrop-blur-lg bg-white/80 dark:bg-primary-900/70 rounded-2xl p-8 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] border border-gray-200 dark:border-primary-700/70 hover:border-blue-400 dark:hover:border-accent-400/50 transition-all duration-500 group relative overflow-hidden"
               style={{
                 boxShadow:
                   "0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.4), 0 0 60px rgba(59, 130, 246, 0.2)",
@@ -111,7 +111,7 @@ const About = () => {
                     Quick Overview
                   </h3>
                 </div>
-                <ul className="space-y-4 text-gray-200 dark:text-gray-300">
+                <ul className="space-y-4 text-gray-700 dark:text-gray-300">
                   {[
                     { icon: "📧", text: "rifathanfathir33@gmail.com" },
                     {
@@ -134,7 +134,7 @@ const About = () => {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                       viewport={{ once: true }}
                       whileHover={{ x: 10, scale: 1.02 }}
-                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-primary-800/50 transition-all duration-300 cursor-pointer"
+                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-primary-800/50 transition-all duration-300 cursor-pointer"
                     >
                       <span className="text-2xl">{item.icon}</span>
                       <span>{item.text}</span>

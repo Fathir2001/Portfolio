@@ -4,7 +4,7 @@ import { Award, Calendar, GraduationCap } from "lucide-react";
 const educationData = [
   {
     degree: "NDT in Information Technology",
-    institution: "Institute of Technology University of Moratuwa",
+    institution: "Institute of Technology, University of Moratuwa",
     location: "Moratuwa, Sri Lanka",
     period: "2023 - Present",
     achievements: [

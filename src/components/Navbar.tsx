@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Moon, Sun, Menu, X } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
+import { motion } from "framer-motion";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
@@ -13,8 +13,8 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -23,7 +23,9 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg' : 'bg-transparent'
+        isScrolled
+          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg"
+          : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,16 +38,32 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#about" className="nav-link zoom-effect"> <b>About</b></a>
-            <a href="#skills" className="nav-link zoom-effect"> <b>Skills</b></a>
-            <a href="#projects" className="nav-link zoom-effect"><b>Projects</b></a>
-            <a href="#experience" className="nav-link zoom-effect"><b>Experience</b></a>
-            <a href="#contact" className="nav-link zoom-effect"><b>Contact</b></a>
+            <a href="#about" className="nav-link zoom-effect">
+              {" "}
+              <b>About</b>
+            </a>
+            <a href="#education" className="nav-link zoom-effect">
+              {" "}
+              <b>Education</b>
+            </a>
+            <a href="#skills" className="nav-link zoom-effect">
+              {" "}
+              <b>Skills</b>
+            </a>
+            <a href="#projects" className="nav-link zoom-effect">
+              <b>Projects</b>
+            </a>
+            <a href="#experience" className="nav-link zoom-effect">
+              <b>Experience</b>
+            </a>
+            <a href="#contact" className="nav-link zoom-effect">
+              <b>Contact</b>
+            </a>
             <button
               onClick={toggleTheme}
               className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
             >
-              {theme === 'dark' ? (
+              {theme === "dark" ? (
                 <Sun className="w-5 h-5 text-gray-600 dark:text-gray-300" />
               ) : (
                 <Moon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
@@ -79,16 +97,29 @@ const Navbar = () => {
           className="md:hidden bg-white dark:bg-gray-900 shadow-lg"
         >
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <a href="#about" className="mobile-nav-link zoom-effect">About</a>
-            <a href="#skills" className="mobile-nav-link zoom-effect">Skills</a>
-            <a href="#projects" className="mobile-nav-link zoom-effect">Projects</a>
-            <a href="#experience" className="mobile-nav-link zoom-effect">Experience</a>
-            <a href="#contact" className="mobile-nav-link zoom-effect">Contact</a>
+            <a href="#about" className="mobile-nav-link zoom-effect">
+              About
+            </a>
+            <a href="#education" className="mobile-nav-link zoom-effect">
+              Education
+            </a>
+            <a href="#skills" className="mobile-nav-link zoom-effect">
+              Skills
+            </a>
+            <a href="#projects" className="mobile-nav-link zoom-effect">
+              Projects
+            </a>
+            <a href="#experience" className="mobile-nav-link zoom-effect">
+              Experience
+            </a>
+            <a href="#contact" className="mobile-nav-link zoom-effect">
+              Contact
+            </a>
             <button
               onClick={toggleTheme}
               className="w-full text-left px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
             >
-              {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              {theme === "dark" ? "Light Mode" : "Dark Mode"}
             </button>
           </div>
         </motion.div>

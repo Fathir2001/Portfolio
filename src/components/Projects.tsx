@@ -1,75 +1,95 @@
-import { motion } from 'framer-motion';
-import { Github } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Github } from "lucide-react";
 
 const projects = [
   {
-    title: 'TrackTempo',
-    description: 'An innovative Travel App elevating the travel experience in Sri Lanka, complete with an admin website for seamless management.',
-    image: '/Portfolio/images/TravelApp.png',
-    tags: ['Flutter(Dart)', 'NodeJS', 'ExpressJS', 'MongoDB', 'React', 'APIs'], 
+    title: "TrackTempo",
+    description:
+      "An innovative Travel App elevating the travel experience in Sri Lanka, complete with an admin website for seamless management.",
+    image: "/Portfolio/images/TravelApp.png",
+    tags: ["Flutter(Dart)", "NodeJS", "ExpressJS", "MongoDB", "React", "APIs"],
     github: [
-      { link: 'https://github.com/Fathir2001/TrekTempo', type: 'mobile', label: 'Mobile' },
-      { link: 'https://github.com/Fathir2001/TrekTempo-Admin-Website', type: 'website', label: 'Website' }
+      {
+        link: "https://github.com/Fathir2001/TrekTempo",
+        type: "mobile",
+        label: "Mobile",
+      },
+      {
+        link: "https://github.com/Fathir2001/TrekTempo-Admin-Website",
+        type: "website",
+        label: "Website",
+      },
     ],
   },
   {
-    title: 'EcoRoute',
-    description: 'An IoT-powered Weather Monitoring App delivering real-time environmental insights through sensor driven data visualization.',
-    image: '/Portfolio/images/Weather App.jpg',
-    tags: ['IoT', 'Arduino', 'Flutter', 'NodeJS', 'ExpressJS', 'MongoDB' ],
-    github: 'https://github.com/Fathir2001/Weather_App',
+    title: "EcoRoute",
+    description:
+      "An IoT-powered Weather Monitoring App delivering real-time environmental insights through sensor driven data visualization.",
+    image: "/Portfolio/images/Weather App.jpg",
+    tags: ["IoT", "Arduino", "Flutter", "NodeJS", "ExpressJS", "MongoDB"],
+    github: "https://github.com/Fathir2001/Weather_App",
   },
   {
-    title: 'R.F Stores',
-    description: 'A feature-rich grocery store app delivering fresh produce, snacks, and essentials with a seamless shopping experience.',
-    image: '/Portfolio/images/RF Stores.jpg',
-    tags: ['Flutter', 'NodeJS', 'ExpressJS', 'MongoDB'],
-    github: 'https://github.com/Fathir2001/RF-Stores',
+    title: "R.F Stores",
+    description:
+      "A feature-rich grocery store app delivering fresh produce, snacks, and essentials with a seamless shopping experience.",
+    image: "/Portfolio/images/RF Stores.jpg",
+    tags: ["Flutter", "NodeJS", "ExpressJS", "MongoDB"],
+    github: "https://github.com/Fathir2001/RF-Stores",
   },
   {
-    title: 'Busify',
-    description: 'Public Transport Service Tracking and Tickets Booking Application designed to streamline public transportation services in Sri Lanka.',
-    image: '/Portfolio/images/Busify.png',
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'MySQL'],
-    github: 'https://github.com/Fathir2001/Busify',
+    title: "Busify",
+    description:
+      "Public Transport Service Tracking and Tickets Booking Application designed to streamline public transportation services in Sri Lanka.",
+    image: "/Portfolio/images/Busify.png",
+    tags: ["HTML5", "CSS3", "JavaScript", "PHP", "MySQL"],
+    github: "https://github.com/Fathir2001/Busify",
   },
   {
-    title: 'Foodie-Fix',
-    description: 'This modern E-Commerce Website allows users to browse and order a variety of trendy food items and drinks online.',
-    image: '/Portfolio/images/Restaurent.png',
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'MySQL'],
-    github: 'https://github.com/Fathir2001/Foodie-Fix',
-  }
+    title: "Foodie-Fix",
+    description:
+      "This modern E-Commerce Website allows users to browse and order a variety of trendy food items and drinks online.",
+    image: "/Portfolio/images/Restaurent.png",
+    tags: ["HTML5", "CSS3", "JavaScript", "PHP", "MySQL"],
+    github: "https://github.com/Fathir2001/Foodie-Fix",
+  },
 ];
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-20 bg-gradient-to-br from-primary-900 to-primary-800">
+    <section
+      id="projects"
+      className="py-20 bg-gradient-to-br from-primary-900 to-primary-800"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
           <h2 className="section-title text-white">Featured Projects</h2>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto mt-4">
+            Showcasing my creative solutions and technical expertise
+          </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, scale: 0 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
+              viewport={{ once: true, margin: "-50px" }}
               className="project-card group"
             >
               <div className="relative overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
+                  loading="lazy"
                   className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
@@ -106,7 +126,7 @@ const Projects = () => {
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {project.tags.map(tag => (
+                  {project.tags.map((tag) => (
                     <span
                       key={tag}
                       className="px-3 py-1 text-sm font-medium bg-[#121a2d] text-accent-400 dark:bg-purple-900 text-accent-400 dark:text-purple-400 rounded-full"

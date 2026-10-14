@@ -1,156 +1,108 @@
-import { motion } from "framer-motion";
-import { Menu, Moon, Sun, X } from "lucide-react";
-import { useEffect, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
+import { Menu, Moon, Sun, X, ArrowUpRight } from "lucide-react";
 import { useTheme } from "../context/theme";
-
-const Navbar = () => {
+const links = [
+  ["projects", "Work"],
+  ["experience", "Experience"],
+  ["about", "About"],
+  ["skills", "Skills"],
+  ["education", "Education"],
+];
+export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("home");
+  const menuButton = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+    const onScroll = () => {
+      const sections = [...document.querySelectorAll("main > section")];
+      let current = "home";
+      for (const section of sections)
+        if (section.getBoundingClientRect().top <= 160) current = section.id;
+      setActive(current);
     };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
   useEffect(() => {
     const close = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-        document.getElementById("menu-toggle")?.focus();
+      if (event.key === "Escape" && open) {
+        setOpen(false);
+        menuButton.current?.focus();
       }
     };
+    const resize = () => {
+      if (innerWidth >= 1024) setOpen(false);
+    };
     window.addEventListener("keydown", close);
-    return () => window.removeEventListener("keydown", close);
-  }, [isMobileMenuOpen]);
-
+    window.addEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("keydown", close);
+      window.removeEventListener("resize", resize);
+    };
+  }, [open]);
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-lg border-b border-gray-200/50 dark:border-gray-700/50"
-          : "bg-transparent"
-      }`}
-      style={isScrolled ? { boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)" } : {}}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0">
-            <a href="#home" className="text-2xl text-gray-900 dark:text-white">
-              <b>Rifthan Fathir</b>
-            </a>
-          </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-8">
-            <a href="#about" className="nav-link zoom-effect">
-              {" "}
-              <b>About</b>
-            </a>
-            <a href="#education" className="nav-link zoom-effect">
-              {" "}
-              <b>Education</b>
-            </a>
-            <a href="#skills" className="nav-link zoom-effect">
-              {" "}
-              <b>Skills</b>
-            </a>
-            <a href="#projects" className="nav-link zoom-effect">
-              <b>Projects</b>
-            </a>
-            <a href="#experience" className="nav-link zoom-effect">
-              <b>Experience</b>
-            </a>
-            <a href="#contact" className="nav-link zoom-effect">
-              <b>Contact</b>
-            </a>
-            <button
-              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
-            >
-              {theme === "dark" ? (
-                <Sun className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-              ) : (
-                <Moon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-              )}
-            </button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center">
-            <button
-              id="menu-toggle"
-              aria-label={
-                isMobileMenuOpen ? "Close navigation" : "Open navigation"
-              }
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-menu"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.2 }}
-          id="mobile-menu"
-          onClick={(event) => {
-            if ((event.target as HTMLElement).closest("a"))
-              setIsMobileMenuOpen(false);
-          }}
-          className="lg:hidden bg-white dark:bg-gray-900 shadow-lg"
+    <header className="site-header">
+      <nav className="page-width nav-inner" aria-label="Main navigation">
+        <a
+          href="#home"
+          className="wordmark"
+          onClick={() => setOpen(false)}
+          aria-label="Rifthan Fathir home"
         >
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            <a href="#about" className="mobile-nav-link zoom-effect">
-              About
-            </a>
-            <a href="#education" className="mobile-nav-link zoom-effect">
-              Education
-            </a>
-            <a href="#skills" className="mobile-nav-link zoom-effect">
-              Skills
-            </a>
-            <a href="#projects" className="mobile-nav-link zoom-effect">
-              Projects
-            </a>
-            <a href="#experience" className="mobile-nav-link zoom-effect">
-              Experience
-            </a>
-            <a href="#contact" className="mobile-nav-link zoom-effect">
-              Contact
-            </a>
-            <button
-              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-              onClick={toggleTheme}
-              className="w-full text-left px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+          rf<span>.</span>
+          <span className="wordmark-name">Rifthan Fathir</span>
+        </a>
+        <div className="desktop-nav">
+          {links.map(([id, label]) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              aria-current={active === id ? "location" : undefined}
             >
-              {theme === "dark" ? "Light Mode" : "Dark Mode"}
-            </button>
-          </div>
-        </motion.div>
+              {label}
+            </a>
+          ))}
+        </div>
+        <div className="nav-actions">
+          <button
+            className="icon-button"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          >
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+          <a href="#contact" className="nav-contact">
+            Let's talk <ArrowUpRight size={16} />
+          </a>
+          <button
+            ref={menuButton}
+            className="icon-button mobile-toggle"
+            aria-label={open ? "Close navigation" : "Open navigation"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+      </nav>
+      {open && (
+        <div id="mobile-menu" className="mobile-menu">
+          {[...links, ["contact", "Contact"]].map(([id, label]) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              aria-current={active === id ? "location" : undefined}
+              onClick={() => setOpen(false)}
+            >
+              {label}
+              <ArrowUpRight size={16} />
+            </a>
+          ))}
+        </div>
       )}
-    </motion.nav>
+    </header>
   );
-};
-
-export default Navbar;
+}

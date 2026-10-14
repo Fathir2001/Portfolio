@@ -1,353 +1,86 @@
-import { motion, useReducedMotion } from "framer-motion";
-import {
-  Code2,
-  Facebook,
-  Github,
-  Instagram,
-  Linkedin,
-  X,
-  Youtube,
-} from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-
-const Hero = () => {
-  const reducedMotion = useReducedMotion();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [showScrollText, setShowScrollText] = useState(true);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || reducedMotion) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    class Triangle {
-      x: number;
-      y: number;
-      size: number;
-      rotation: number;
-      speed: number;
-      color: string;
-      opacity: number;
-
-      constructor() {
-        this.size = Math.random() * 20 + 10;
-        this.x = Math.random() * canvas!.width;
-        this.y = Math.random() * canvas!.height;
-        this.rotation = Math.random() * Math.PI * 2;
-        this.speed = Math.random() * 0.2 + 0.1;
-        this.color = "#3b82f6";
-        this.opacity = Math.random() * 0.3 + 0.1;
-      }
-
-      draw() {
-        ctx!.save();
-        ctx!.translate(this.x, this.y);
-        ctx!.rotate(this.rotation);
-        ctx!.beginPath();
-        ctx!.moveTo(-this.size / 2, this.size / 2);
-        ctx!.lineTo(this.size / 2, this.size / 2);
-        ctx!.lineTo(0, -this.size / 2);
-        ctx!.closePath();
-        ctx!.fillStyle = `${this.color}${Math.floor(this.opacity * 255)
-          .toString(16)
-          .padStart(2, "0")}`;
-        ctx!.fill();
-        ctx!.restore();
-      }
-
-      update() {
-        this.rotation += this.speed * 0.02;
-        this.y += Math.sin(this.rotation) * 0.3;
-        this.x += Math.cos(this.rotation) * 0.3;
-
-        if (canvas) {
-          if (this.x < -this.size) this.x = canvas.width + this.size;
-          if (this.x > canvas.width + this.size) this.x = -this.size;
-          if (this.y < -this.size) this.y = canvas.height + this.size;
-          if (this.y > canvas.height + this.size) this.y = -this.size;
-        }
-      }
-    }
-
-    const triangles: Triangle[] = Array.from(
-      { length: 25 },
-      () => new Triangle(),
-    );
-    let mouseX = 0;
-    let mouseY = 0;
-    let frame = 0;
-
-    canvas.addEventListener("mousemove", (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    const drawGrid = () => {
-      const gridSize = 30;
-      const offset = frame % gridSize;
-
-      ctx.strokeStyle = "#1e40af20";
-      ctx.lineWidth = 1;
-
-      for (let x = offset; x < canvas.width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
-      }
-
-      for (let y = offset; y < canvas.height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-      }
-    };
-
-    let animationId = 0;
-    const animate = () => {
-      ctx.fillStyle = "#0f172a";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      frame++;
-      drawGrid();
-
-      triangles.forEach((triangle) => {
-        const dx = mouseX - triangle.x;
-        const dy = mouseY - triangle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < 120) {
-          const angle = Math.atan2(dy, dx);
-          triangle.x -= Math.cos(angle) * 2;
-          triangle.y -= Math.sin(angle) * 2;
-          triangle.opacity = Math.min(0.4, triangle.opacity + 0.02);
-        } else {
-          triangle.opacity = Math.max(0.1, triangle.opacity - 0.01);
-        }
-
-        triangle.update();
-        triangle.draw();
-      });
-
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowScrollText(false);
-      } else {
-        setShowScrollText(true);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [reducedMotion]);
-
+﻿import { motion } from "framer-motion";
+import { ArrowDown, ArrowUpRight, Github, Linkedin } from "lucide-react";
+import DeviceShowcase from "./DeviceShowcase";
+export default function Hero() {
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800"
-    >
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-30 dark:opacity-100"
-      />
-
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-blue-600/5 dark:from-primary-900/50 dark:to-primary-800/50" />
-
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="space-y-8"
-        >
+    <section id="home" className="hero-section">
+      <div className="hero-grid" aria-hidden="true" />
+      <div className="page-width relative">
+        <div className="hero-layout">
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="backdrop-blur-lg bg-white/90 dark:bg-primary-900/70 rounded-2xl p-8 border border-gray-200 dark:border-primary-700/70 hover:border-blue-400 dark:hover:border-accent-400/50 transition-all duration-300 shadow-xl"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="hero-copy"
           >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              whileHover={{ scale: 1.05 }}
-              className="w-40 h-40 mx-auto rounded-full overflow-hidden border-4 border-blue-500 dark:border-accent-400 shadow-xl"
-            >
+            <div className="eyebrow">
+              <span className="status-dot" /> SOFTWARE ENGINEER / FULL-STACK
+              DEVELOPER
+            </div>
+            <p className="hero-intro">Hello, I'm Rifthan Fathir.</p>
+            <h1>
+              Thoughtful code.
+              <br />
+              <span>Useful experiences.</span>
+            </h1>
+            <p className="hero-description">
+              I turn complex workflows into intuitive software — from enterprise
+              systems to the web and mobile apps people use every day.
+            </p>
+            <div className="hero-actions">
+              <a href="#projects" className="primary-button">
+                Explore my work <ArrowUpRight size={18} />
+              </a>
+              <a href="#contact" className="text-link">
+                Let's talk <ArrowUpRight size={17} />
+              </a>
+            </div>
+            <div className="hero-person">
               <img
                 src={`${import.meta.env.BASE_URL}images/profile.jpg`}
                 alt="Rifthan Fathir"
-                width={160}
-                height={160}
-                className="w-full h-full object-cover rounded-full"
+                width={48}
+                height={48}
               />
-            </motion.div>
-
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-center space-y-4 mt-6"
-            >
-              <motion.h1
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white"
-              >
-                Rifthan Fathir
-              </motion.h1>
-
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.6, type: "spring" }}
-                className="flex items-center justify-center space-x-2 text-blue-600 dark:text-accent-400"
-              >
-                <Code2 className="w-6 h-6" />
-                <motion.span
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                  className="text-xl font-medium"
-                >
-                  Software Engineer | Full-Stack Developer | Web &amp; Mobile
-                  Application Developer
-                </motion.span>
-              </motion.div>
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.9 }}
-                className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-primary-200"
-              >
-                Building enterprise software and web and mobile applications
-                with Python, ERPNext/Frappe, React, and Flutter.
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 1.1 }}
-                className="text-blue-600 dark:text-accent-400 text-lg font-medium"
-              >
-                Software Engineer at Imara Software Solutions (Pvt) Ltd
-              </motion.p>
-            </motion.div>
-
-            <div className="flex flex-wrap justify-center gap-3 mt-8">
-              <a className="primary-button" href="#projects">
-                Explore projects
-              </a>
-              <a className="secondary-button" href="#contact">
-                Let’s connect
-              </a>
-            </div>
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.1 }}
-              className="flex flex-wrap justify-center gap-2 sm:gap-4 mt-8"
-            >
-              {[
-                {
-                  icon: Github,
-                  href: "https://github.com/Fathir2001",
-                  color: "hover:from-gray-700 hover:to-gray-900",
-                },
-                {
-                  icon: Linkedin,
-                  href: "https://www.linkedin.com/in/rifthan-fathir",
-                  color: "hover:from-blue-600 hover:to-blue-700",
-                },
-                {
-                  icon: Instagram,
-                  href: "https://www.instagram.com/rifthan_fathir",
-                  color: "hover:from-pink-500 hover:to-purple-600",
-                },
-                {
-                  icon: Facebook,
-                  href: "https://www.facebook.com/rifthanfathir.professional",
-                  color: "hover:from-blue-500 hover:to-blue-600",
-                },
-                {
-                  icon: Youtube,
-                  href: "https://www.youtube.com/@tdgamersfathirs962",
-                  color: "hover:from-red-500 hover:to-red-600",
-                },
-                {
-                  icon: X,
-                  href: "https://x.com/rifthanfathir33",
-                  color: "hover:from-gray-700 hover:to-black",
-                },
-              ].map((item, index) => (
-                <motion.a
-                  key={index}
-                  whileHover={{ scale: 1.2, y: -5 }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label={`Visit ${new URL(item.href).hostname.replace("www.", "")}`}
-                  href={item.href}
+              <div>
+                <strong>Software Engineer</strong>
+                <span>Imara Software Solutions (Pvt) Ltd</span>
+              </div>
+              <div className="hero-socials">
+                <a
+                  href="https://github.com/Fathir2001"
+                  aria-label="Rifthan on GitHub"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group relative p-3 rounded-full backdrop-blur-md bg-white/10 dark:bg-primary-800/30 border border-white/20 dark:border-primary-700/30 shadow-lg hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-transparent ${item.color}`}
                 >
-                  <item.icon className="w-6 h-6 text-blue-600 dark:text-blue-400 group-hover:text-white transition-colors duration-300 relative z-10" />
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-300" />
-                </motion.a>
-              ))}
-            </motion.div>
+                  <Github size={19} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/rifthan-fathir"
+                  aria-label="Rifthan on LinkedIn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Linkedin size={19} />
+                </a>
+              </div>
+            </div>
+            <p className="sr-only">
+              Software Engineer | Full-Stack Developer | Web &amp; Mobile
+              Application Developer
+            </p>
           </motion.div>
-          {showScrollText && !reducedMotion && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.5 }}
-              className="hidden"
-            >
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="text-primary-400"
-              >
-                <span className="block text-sm text-center mb-2">
-                  Scroll to explore
-                </span>
-                <div className="w-6 h-10 border-2 border-primary-400 rounded-full mx-auto flex justify-center">
-                  <motion.div
-                    animate={{ y: [0, 12, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    className="w-1 h-3 bg-primary-400 rounded-full mt-2"
-                  />
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </motion.div>
+          <DeviceShowcase />
+        </div>
+        <div className="hero-baseline">
+          <a href="#projects">
+            <ArrowDown size={15} /> SCROLL TO DISCOVER
+          </a>
+          <span>
+            ENTERPRISE SYSTEMS <i /> WEB APPLICATIONS <i /> MOBILE EXPERIENCES
+          </span>
+        </div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

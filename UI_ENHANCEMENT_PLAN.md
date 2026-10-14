@@ -34,4 +34,28 @@ Official implementation references:
 - Motion reduced-motion handling: https://motion.dev/docs/react-use-reduced-motion
 - Three.js resource cleanup: https://threejs.org/manual/pages/how-to-dispose-of-objects.html
 
-These are proposed changes, not implemented UI changes in the image-fix pass.
+Implemented in the existing repository:
+- Editorial two-column hero with an on-demand React Three Fiber laptop/phone scene and three switchable real project screens.
+- Static covers for narrow/touch layouts, reduced motion, and WebGL failures.
+- Two featured projects, native accessible detail dialogs, and interactive architecture layers built with CSS perspective and semantic buttons.
+- Fine-pointer card tilt, active navigation, reordered sections, refined surfaces, portrait About section, compact education cards and a footer.
+
+The architecture explorer is a lightweight CSS 3D interaction, not a second WebGL scene. This keeps the portfolio to a single canvas. Three.js/Fiber are split into an optional desktop-only chunk. The existing React 18 architecture is retained using Fiber 8.
+
+No project metrics, client counts or individual contribution claims were invented. Project notes use supplied stacks, public website information and the previously verified HireMe README.
+
+## Redesign implementation and verification
+
+The approved redesign is implemented in place. Main changes: `Hero.tsx`, `DeviceShowcase.tsx`, `DeviceScene.tsx`, `Projects.tsx`, `Navbar.tsx`, `About.tsx`, `Education.tsx`, `src/index.css`, `src/data/case-studies.ts`, and section ordering in `App.tsx`. The existing contact delivery/validation logic, academic projects, personal information, themes, and GitHub Pages base path remain in use.
+
+The hero uses real capture textures in `public/images/screens/`; the capture script now refreshes these alongside the combined covers. Three showcase projects can be selected with ordinary HTML buttons. The architecture explorer uses CSS perspective rather than creating a second WebGL canvas.
+
+Browser checks covered desktop 3D loading and project switching, 390/768/1440 layouts in both themes, dialog keyboard containment/Escape/focus restoration, architecture selection, project filters, mobile navigation, image/anchor paths, and mocked contact success/failure states. WebGL-disabled and initial reduced-motion fallbacks were separately verified. No actual contact messages were sent. Testing uses Chromium viewport emulation; a physical phone performance test was not available.
+
+The main application is approximately 97 KB gzip, and the optional desktop 3D chunk is approximately 223 KB gzip. Vite reports a non-blocking large-chunk warning for this lazy-loaded dependency; mobile, touch and reduced-motion layouts avoid loading it. The existing Browserslist data-age warning remains.
+
+Use `npm.cmd run dev` to review locally. For production browser verification, run `npm.cmd run build`, start `npm.cmd run preview -- --host 127.0.0.1`, then run `npm.cmd run verify:redesign`.
+
+No push, merge or deployment was performed.
+
+Final validation: build (including TypeScript) and lint pass. The live reduced-motion preference change was verified against the final production build: the canvas is removed and the actual project cover appears immediately. `git diff --check` passes. Screenshots are saved under ignored `artifacts/redesign/`, including desktop, mobile, tablet, light/dark and project dialog views.

@@ -16,10 +16,17 @@ const groups = {
 };
 export default function Skills() {
   return (
-    <section id="skills" className="py-20 bg-blue-50 dark:bg-primary-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="section-title">Technical Skills</h2>
+    <section id="skills" className="skills-section">
+      <div className="page-width">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">04 / THE TOOLKIT</p>
+            <h2 className="section-title">
+              The right tools.
+              <br />
+              For the right problem.
+            </h2>
+          </div>
           <p className="section-copy">
             Tools and technologies across the application lifecycle.
           </p>

@@ -12,6 +12,7 @@ const entries = [
   ["hireme", "https://hireme-f.netlify.app/"],
 ];
 await fs.mkdir("artifacts/captures", { recursive: true });
+await fs.mkdir("public/images/screens", { recursive: true });
 // Match the existing directory's case: GitHub Pages is case sensitive.
 const output = "public/images/Projects";
 const browser = await chromium.launch({ channel: "chrome", headless: true });
@@ -99,6 +100,9 @@ for (const [id, url] of entries.filter(
         throw new Error(body.slice(0, 180));
       const path = `artifacts/captures/${id}-${kind}.png`;
       await page.screenshot({ path, animations: "disabled" });
+      if (["chem-is-try", "pink-cosmetics", "hireme"].includes(id)) {
+        await sharp(path).resize({ width: kind === "desktop" ? 1280 : 390 }).webp({ quality: 88 }).toFile(`public/images/screens/${id}-${kind}.webp`);
+      }
       captures.push(path);
       await page.close();
     }

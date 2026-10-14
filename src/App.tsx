@@ -21,13 +21,22 @@ function App() {
           <Navbar />
           <main id="main" tabIndex={-1}>
             <Hero />
-            <About />
-            <Education />
-            <Skills />
             <Projects />
             <Experience />
+            <About />
+            <Skills />
+            <Education />
             <Contact />
           </main>
+          <footer className="site-footer">
+            <div className="page-width">
+              <a href="#home" className="wordmark">
+                rf<span>.</span>
+              </a>
+              <p>Thoughtfully built by Rifthan Fathir.</p>
+              <span>React / TypeScript / A little curiosity</span>
+            </div>
+          </footer>
           <BackToTop />
         </div>
       </MotionConfig>

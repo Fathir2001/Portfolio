@@ -60,13 +60,13 @@ export default function Contact() {
     }
   }
   return (
-    <section
-      id="contact"
-      className="py-20 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-primary-900 dark:to-primary-800"
-    >
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="section-title">Let’s Build Something Useful</h2>
+    <section id="contact" className="contact-section">
+      <div className="page-width">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">06 / START A CONVERSATION</p>
+            <h2 className="section-title">Let’s Build Something Useful</h2>
+          </div>
           <p className="section-copy">
             Have a project in mind or want to discuss software development? Get
             in touch.

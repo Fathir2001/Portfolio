@@ -43,10 +43,17 @@ const volunteering = [
 ];
 export default function Experience() {
   return (
-    <section id="experience" className="py-20 bg-blue-50 dark:bg-primary-900">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="section-title">Professional Experience</h2>
+    <section id="experience" className="experience-section">
+      <div className="page-width">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">02 / EXPERIENCE</p>
+            <h2 className="section-title">
+              Building software.
+              <br />
+              Growing with purpose.
+            </h2>
+          </div>
           <p className="section-copy">
             Building practical software for enterprise operations.
           </p>
@@ -58,7 +65,7 @@ export default function Experience() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative pl-6 sm:pl-10"
+              className="relative pl-6 sm:pl-10 experience-item"
             >
               <span className="absolute -left-2 top-7 h-4 w-4 rounded-full bg-blue-600 border-4 border-blue-100 dark:border-primary-900" />
               <article className="panel">

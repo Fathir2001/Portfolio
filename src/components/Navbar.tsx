@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../context/theme";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
@@ -14,8 +14,19 @@ const Navbar = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  useEffect(() => {
+    const close = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+        document.getElementById("menu-toggle")?.focus();
+      }
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [isMobileMenuOpen]);
 
   return (
     <motion.nav
@@ -32,13 +43,13 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <a href="#" className="text-2xl text-gray-900 dark:text-white">
+            <a href="#home" className="text-2xl text-gray-900 dark:text-white">
               <b>Rifthan Fathir</b>
             </a>
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8">
             <a href="#about" className="nav-link zoom-effect">
               {" "}
               <b>About</b>
@@ -61,6 +72,7 @@ const Navbar = () => {
               <b>Contact</b>
             </a>
             <button
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
               onClick={toggleTheme}
               className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
             >
@@ -73,8 +85,14 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center">
             <button
+              id="menu-toggle"
+              aria-label={
+                isMobileMenuOpen ? "Close navigation" : "Open navigation"
+              }
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
             >
@@ -95,7 +113,12 @@ const Navbar = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.2 }}
-          className="md:hidden bg-white dark:bg-gray-900 shadow-lg"
+          id="mobile-menu"
+          onClick={(event) => {
+            if ((event.target as HTMLElement).closest("a"))
+              setIsMobileMenuOpen(false);
+          }}
+          className="lg:hidden bg-white dark:bg-gray-900 shadow-lg"
         >
           <div className="px-2 pt-2 pb-3 space-y-1">
             <a href="#about" className="mobile-nav-link zoom-effect">
@@ -117,6 +140,7 @@ const Navbar = () => {
               Contact
             </a>
             <button
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
               onClick={toggleTheme}
               className="w-full text-left px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
             >

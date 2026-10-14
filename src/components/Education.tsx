@@ -3,28 +3,18 @@ import { Award, Calendar, GraduationCap } from "lucide-react";
 
 const educationData = [
   {
-    degree: "NDT in Information Technology",
-    institution: "Institute of Technology, University of Moratuwa",
-    location: "Moratuwa, Sri Lanka",
-    period: "2023 - Present",
-    achievements: [
-      "Member of IEEE RAS Student Branch Chapter",
-      "Focus on Software Engineering and AI",
-      "Active participant in coding competitions and hackathons",
-    ],
-    icon: "🎓",
+    degree: "BSc (Hons) Computing (Top-Up)",
+    institution: "Wrexham University",
+    period: "2026 (September)",
+    achievements: ["In Progress"],
+    icon: "\uD83C\uDF93",
   },
   {
-    degree: "G.C.E Advanced Level - Physical Science Stream",
-    institution: "Puttalam, Kalpity, Kurinchipity Muslim Maha Vidyalaya",
-    location: "Puttalam, Sri Lanka",
-    period: "2019 - 2021",
-    achievements: [
-      "3 passes in Combined Mathematics, Physics & Chemistry",
-      "Active member of the school's IT Society",
-      "Participated in various inter-school competitions",
-    ],
-    icon: "🏫",
+    degree: "National Diploma in Technology (IT)",
+    institution: "University of Moratuwa",
+    period: "2022–2025",
+    achievements: ["Completed"],
+    icon: "\uD83C\uDF93",
   },
 ];
 
@@ -90,9 +80,6 @@ const Education = () => {
                         <p className="text-lg text-gray-800 dark:text-white font-semibold mb-1">
                           {edu.institution}
                         </p>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
-                          📍 {edu.location}
-                        </p>
                       </div>
                     </div>
 
@@ -112,7 +99,7 @@ const Education = () => {
                     <div className="flex items-center gap-2 mb-4">
                       <Award className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                       <span className="text-gray-900 dark:text-white font-semibold">
-                        Key Highlights
+                        Status
                       </span>
                     </div>
                     {edu.achievements.map((achievement, idx) => (

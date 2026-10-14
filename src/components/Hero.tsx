@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Code2,
   Facebook,
@@ -11,12 +11,13 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 const Hero = () => {
+  const reducedMotion = useReducedMotion();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [showScrollText, setShowScrollText] = useState(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || reducedMotion) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -75,7 +76,7 @@ const Hero = () => {
 
     const triangles: Triangle[] = Array.from(
       { length: 25 },
-      () => new Triangle()
+      () => new Triangle(),
     );
     let mouseX = 0;
     let mouseY = 0;
@@ -108,6 +109,7 @@ const Hero = () => {
       }
     };
 
+    let animationId = 0;
     const animate = () => {
       ctx.fillStyle = "#0f172a";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -133,7 +135,7 @@ const Hero = () => {
         triangle.draw();
       });
 
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
     };
 
     animate();
@@ -155,13 +157,17 @@ const Hero = () => {
     window.addEventListener("scroll", handleScroll);
 
     return () => {
+      cancelAnimationFrame(animationId);
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [reducedMotion]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800"
+    >
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full opacity-30 dark:opacity-100"
@@ -169,7 +175,7 @@ const Hero = () => {
 
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-blue-600/5 dark:from-primary-900/50 dark:to-primary-800/50" />
 
-      <div className="relative z-10 max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -190,8 +196,10 @@ const Hero = () => {
               className="w-40 h-40 mx-auto rounded-full overflow-hidden border-4 border-blue-500 dark:border-accent-400 shadow-xl"
             >
               <img
-                src="/Portfolio/images/profile.jpg"
-                alt="Profile"
+                src={`${import.meta.env.BASE_URL}images/profile.jpg`}
+                alt="Rifthan Fathir"
+                width={160}
+                height={160}
                 className="w-full h-full object-cover rounded-full"
               />
             </motion.div>
@@ -224,7 +232,8 @@ const Hero = () => {
                   transition={{ duration: 0.5, delay: 0.8 }}
                   className="text-xl font-medium"
                 >
-                  Full Stack | Mobile Developer
+                  Software Engineer | Full-Stack Developer | Web &amp; Mobile
+                  Application Developer
                 </motion.span>
               </motion.div>
 
@@ -234,9 +243,8 @@ const Hero = () => {
                 transition={{ duration: 0.5, delay: 0.9 }}
                 className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-primary-200"
               >
-                Crafting seamless digital experiences with dedication and
-                expertise. Specialized in Flutter and React for responsive,
-                dynamic solutions.
+                Building enterprise software and web and mobile applications
+                with Python, ERPNext/Frappe, React, and Flutter.
               </motion.p>
 
               <motion.p
@@ -245,16 +253,23 @@ const Hero = () => {
                 transition={{ duration: 0.5, delay: 1.1 }}
                 className="text-blue-600 dark:text-accent-400 text-lg font-medium"
               >
-                Currently working as an Associate Software Engineer at Imara
-                Software Solutions PVT LTD
+                Software Engineer at Imara Software Solutions (Pvt) Ltd
               </motion.p>
             </motion.div>
 
+            <div className="flex flex-wrap justify-center gap-3 mt-8">
+              <a className="primary-button" href="#projects">
+                Explore projects
+              </a>
+              <a className="secondary-button" href="#contact">
+                Let’s connect
+              </a>
+            </div>
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 1.1 }}
-              className="flex justify-center space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-6 mt-8"
+              className="flex flex-wrap justify-center gap-2 sm:gap-4 mt-8"
             >
               {[
                 {
@@ -292,6 +307,7 @@ const Hero = () => {
                   key={index}
                   whileHover={{ scale: 1.2, y: -5 }}
                   whileTap={{ scale: 0.9 }}
+                  aria-label={`Visit ${new URL(item.href).hostname.replace("www.", "")}`}
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -303,12 +319,12 @@ const Hero = () => {
               ))}
             </motion.div>
           </motion.div>
-          {showScrollText && (
+          {showScrollText && !reducedMotion && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1.5 }}
-              className="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden sm:block"
+              className="hidden"
             >
               <motion.div
                 animate={{ y: [0, 10, 0] }}

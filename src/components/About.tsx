@@ -29,47 +29,22 @@ const About = () => {
             className="space-y-6"
           >
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-              I'm a passionate{" "}
-              <span className="font-bold text-gray-900 dark:text-white">
-                Full Stack Developer
-              </span>{" "}
-              with expertise in{" "}
-              <span className="font-bold text-gray-900 dark:text-white">
-                Mobile and Web Development
-              </span>
-              , specializing in building seamless experiences with{" "}
-              <span className="font-bold text-gray-900 dark:text-white">
-                Flutter
-              </span>{" "}
-              and{" "}
-              <span className="font-bold text-gray-900 dark:text-white">
-                React
-              </span>
-              . Currently working as an{" "}
-              <span className="font-bold text-gray-900 dark:text-white">
-                Associate Software Engineer
-              </span>{" "}
-              at{" "}
-              <span className="font-bold text-gray-900 dark:text-white">
-                Imara Software Solutions PVT LTD
-              </span>
-              , where I contribute to innovative projects and grow my technical
-              expertise.
+              I'm Rifthan Fathir, a Software Engineer at{" "}
+              <strong>Imara Software Solutions (Pvt) Ltd</strong>. I develop
+              full-stack web and mobile applications and enterprise software
+              that supports everyday business operations.
             </p>
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-              As an{" "}
-              <span className="font-bold text-gray-900 dark:text-white">
-                Information Technology student
-              </span>{" "}
-              at the{" "}
-              <span className="font-bold text-gray-900 dark:text-white">
-                Institute of Technology University of Moratuwa
-              </span>
-              , I'm constantly learning and exploring new technologies. My goal
-              is to transform creative concepts into impactful digital solutions
-              through well-structured, optimized, and scalable code. I strive to
-              build applications that are both highly functional and a pleasure
-              for users to interact with.
+              My experience spans ERPNext and Frappe development, Python, REST
+              APIs, enterprise reporting, academic management, and HRMS. I work
+              with databases and production deployments, connecting reliable
+              backend services with approachable interfaces.
+            </p>
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+              I completed the National Diploma in Technology (IT) at the
+              University of Moratuwa (2022–2025) and am pursuing the BSc (Hons)
+              Computing (Top-Up) at Wrexham University, with an academic
+              reference of September 2026.
             </p>
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -77,7 +52,7 @@ const About = () => {
             >
               <Volume2 className="h-6 w-6 text-blue-600 dark:text-accent-400" />
               <span className="text-lg font-medium text-gray-800 dark:text-gray-300">
-                Fun fact: I speak fluent HTML, CSS, and JavaScript{" "}
+                From enterprise workflows to web and mobile experiences{" "}
               </span>
               <Annoyed className="h-6 w-6 text-blue-600 dark:text-accent-400" />
             </motion.div>
@@ -113,19 +88,27 @@ const About = () => {
                 </div>
                 <ul className="space-y-4 text-gray-700 dark:text-gray-300">
                   {[
-                    { icon: "📧", text: "rifathanfathir33@gmail.com" },
+                    { icon: "\u2197", text: "rifthanfathir33@gmail.com" },
                     {
-                      icon: "💼",
-                      text: "Associate Software Engineer at Imara Software Solutions",
+                      icon: "\u2197",
+                      text: "Software Engineer · Imara Software Solutions (Pvt) Ltd",
                     },
                     {
-                      icon: "🎓",
-                      text: "NDT in Information Technology - ITU Moratuwa",
+                      icon: "\u2197",
+                      text: "BSc (Hons) Computing (Top-Up) · In Progress",
                     },
-                    { icon: "🚀", text: "Specialized in Flutter & React" },
-                    { icon: "🎯", text: "Focus on Clean Architecture" },
-                    { icon: "📱", text: "Mobile & Web Development Expert" },
-                    { icon: "🤖", text: "IEEE RAS Student Branch Member" },
+                    {
+                      icon: "\u2197",
+                      text: "ERPNext / Frappe · Python · REST APIs",
+                    },
+                    {
+                      icon: "\u2197",
+                      text: "Enterprise reporting · Academic management · HRMS",
+                    },
+                    {
+                      icon: "\u2197",
+                      text: "React · Flutter · Web & mobile applications",
+                    },
                   ].map((item, index) => (
                     <motion.li
                       key={index}
@@ -134,10 +117,10 @@ const About = () => {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                       viewport={{ once: true }}
                       whileHover={{ x: 10, scale: 1.02 }}
-                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-primary-800/50 transition-all duration-300 cursor-pointer"
+                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-primary-800/50 transition-all duration-300"
                     >
                       <span className="text-2xl">{item.icon}</span>
-                      <span>{item.text}</span>
+                      <span className="break-words min-w-0">{item.text}</span>
                     </motion.li>
                   ))}
                 </ul>

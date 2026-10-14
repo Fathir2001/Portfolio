@@ -1,3 +1,4 @@
+import { MotionConfig } from "framer-motion";
 import About from "./components/About";
 import BackToTop from "./components/BackToTop";
 import Contact from "./components/Contact";
@@ -12,19 +13,24 @@ import { ThemeProvider } from "./context/ThemeContext";
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
-        <Navbar />
-        <main>
-          <Hero />
-          <About />
-          <Education />
-          <Skills />
-          <Projects />
-          <Experience />
-          <Contact />
-        </main>
-        <BackToTop />
-      </div>
+      <MotionConfig reducedMotion="user">
+        <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+          <a className="skip-link" href="#main">
+            Skip to content
+          </a>
+          <Navbar />
+          <main id="main" tabIndex={-1}>
+            <Hero />
+            <About />
+            <Education />
+            <Skills />
+            <Projects />
+            <Experience />
+            <Contact />
+          </main>
+          <BackToTop />
+        </div>
+      </MotionConfig>
     </ThemeProvider>
   );
 }

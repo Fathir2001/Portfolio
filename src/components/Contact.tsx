@@ -1,275 +1,183 @@
 import emailjs from "emailjs-com";
-import { motion } from "framer-motion";
-import { Mail, MessageSquare, Send, User } from "lucide-react";
-import React, { useState } from "react";
-
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const [focusedField, setFocusedField] = useState<string | null>(null);
-  const [showPopup, setShowPopup] = useState(false);
-  const [errors, setErrors] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newErrors = {
-      name: formData.name ? "" : "Name is required",
-      email: formData.email ? "" : "Email is required",
-      message: formData.message ? "" : "Message is required",
+import { useRef, useState, type FormEvent } from "react";
+import { Mail, Send } from "lucide-react";
+const empty = { name: "", email: "", message: "" };
+export default function Contact() {
+  const [data, setData] = useState(empty);
+  const [errors, setErrors] = useState(empty);
+  const [status, setStatus] = useState("");
+  const [sending, setSending] = useState(false);
+  const busy = useRef(false);
+  const form = useRef<HTMLFormElement>(null);
+  async function submit(event: FormEvent) {
+    event.preventDefault();
+    if (busy.current) return;
+    const clean = {
+      name: data.name.trim(),
+      email: data.email.trim(),
+      message: data.message.trim(),
     };
-
-    setErrors(newErrors);
-
-    const hasErrors = Object.values(newErrors).some((error) => error !== "");
-    if (hasErrors) {
+    const next = {
+      name:
+        clean.name.length < 2
+          ? "Please enter at least 2 characters for your name."
+          : "",
+      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean.email)
+        ? ""
+        : "Please enter a valid email address.",
+      message:
+        clean.message.length < 10
+          ? "Please write a message of at least 10 characters."
+          : "",
+    };
+    setErrors(next);
+    setStatus("");
+    const invalid = (Object.keys(next) as (keyof typeof next)[]).find(
+      (key) => next[key],
+    );
+    if (invalid) {
+      (form.current?.elements.namedItem(invalid) as HTMLElement)?.focus();
       return;
     }
-
-    emailjs
-      .send(
+    busy.current = true;
+    setSending(true);
+    try {
+      await emailjs.send(
         "service_oyyto7g",
         "template_ewlzi49",
-        formData,
-        "Glai-R1daTW_8_mbt"
-      )
-      .then(
-        (response) => {
-          console.log("SUCCESS!", response.status, response.text);
-          setShowPopup(true);
-          setTimeout(() => setShowPopup(false), 3000); // Hide popup after 3 seconds
-        },
-        (error) => {
-          console.log("FAILED...", error);
-        }
+        clean,
+        "Glai-R1daTW_8_mbt",
       );
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: "" }));
-  };
-
+      setStatus("Thank you! Your message was sent successfully.");
+      setData(empty);
+    } catch {
+      setStatus(
+        "Your message could not be sent. Please try again or email me directly using the link below.",
+      );
+    } finally {
+      busy.current = false;
+      setSending(false);
+    }
+  }
   return (
     <section
       id="contact"
       className="py-20 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-primary-900 dark:to-primary-800"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Get in Touch
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? Let's create
-            something amazing together!
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="section-title">Let’s Build Something Useful</h2>
+          <p className="section-copy">
+            Have a project in mind or want to discuss software development? Get
+            in touch.
           </p>
-        </motion.div>
-
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="grid md:grid-cols-2 gap-8"
-          >
-            {/* Contact Form */}
-            <motion.div
-              whileHover={{ y: -5 }}
-              transition={{ duration: 0.3 }}
-              className="backdrop-blur-lg bg-primary-900/70 p-8 rounded-2xl border border-primary-700/70 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] hover:shadow-[0_12px_40px_0_rgba(59,130,246,0.2)] hover:border-blue-500/50 transition-all duration-300"
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="relative"
-                >
-                  <div
-                    className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-200 ${
-                      focusedField === "name"
-                        ? "text-blue-600 dark:text-blue-400"
-                        : "text-gray-400 dark:text-primary-400"
-                    }`}
-                  >
-                    <User className="w-5 h-5" />
-                  </div>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField("name")}
-                    onBlur={() => setFocusedField(null)}
-                    placeholder="Your Name"
-                    required
-                    className="w-full pl-12 pr-4 py-3 bg-primary-800/50 border border-primary-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-400/50 text-white placeholder-primary-400 transition-all duration-200"
-                  />
-                  {errors.name && (
-                    <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-                  )}
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="relative"
-                >
-                  <div
-                    className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-200 ${
-                      focusedField === "email"
-                        ? "text-blue-600 dark:text-blue-400"
-                        : "text-gray-400 dark:text-primary-400"
-                    }`}
-                  >
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField("email")}
-                    onBlur={() => setFocusedField(null)}
-                    placeholder="Your Email"
-                    required
-                    className="w-full pl-12 pr-4 py-3 bg-primary-800/50 border border-primary-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-400/50 text-white placeholder-primary-400 transition-all duration-200"
-                  />
-                  {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                  )}
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
-                  className="relative"
-                >
-                  <div
-                    className={`absolute left-3 top-4 transition-colors duration-200 ${
-                      focusedField === "message"
-                        ? "text-blue-600 dark:text-blue-400"
-                        : "text-gray-400 dark:text-primary-400"
-                    }`}
-                  >
-                    <MessageSquare className="w-5 h-5" />
-                  </div>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField("message")}
-                    onBlur={() => setFocusedField(null)}
-                    placeholder="Your Message"
-                    required
-                    rows={4}
-                    className="w-full pl-12 pr-4 py-3 bg-primary-800/50 border border-primary-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-400/50 text-white placeholder-primary-400 transition-all duration-200 resize-none"
-                  />
-                  {errors.message && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.message}
-                    </p>
-                  )}
-                </motion.div>
-
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  type="submit"
-                  className="w-full flex justify-center items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/50 shadow-lg hover:shadow-xl"
-                >
-                  <Send className="w-5 h-5" />
-                  Send Message
-                </motion.button>
-              </form>
-            </motion.div>
-
-            {/* Contact Info */}
-            <div className="space-y-8">
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="backdrop-blur-lg bg-white/80 dark:bg-primary-900/70 p-6 rounded-2xl border border-gray-200 dark:border-primary-700/70 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)] hover:shadow-[0_12px_40px_0_rgba(59,130,246,0.2)] hover:border-blue-400 dark:hover:border-blue-500/50 transition-all duration-300"
-                style={{
-                  boxShadow:
-                    "0 0 10px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.2), 0 0 30px rgba(59, 130, 246, 0.1)",
-                }}
-              >
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  Contact Information
-                </h3>
-                <div className="space-y-4 text-gray-700 dark:text-primary-200">
-                  <p className="flex items-center gap-3">
-                    <Mail className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                    rifathanfathir@gmail.com
-                  </p>
-                  <p className="flex items-center gap-3">
-                    <User className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                    Available for freelance work
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                viewport={{ once: true }}
-                className="backdrop-blur-lg bg-white/80 dark:bg-primary-900/70 p-6 rounded-2xl border border-gray-200 dark:border-primary-700/70 shadow-[0_8px_32px_0_rgba(15,23,42,0.3)]"
-                style={{
-                  boxShadow:
-                    "0 0 10px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.2), 0 0 30px rgba(59, 130, 246, 0.1)",
-                }}
-              >
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  Response Time
-                </h3>
-                <p className="text-gray-700 dark:text-primary-200">
-                  I typically respond within 24 hours during business days.
-                </p>
-              </motion.div>
-            </div>
-          </motion.div>
         </div>
-      </div>
-
-      {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <p className="text-lg font-semibold">
-              Your Message Sent Successfully
+        <div className="grid md:grid-cols-2 gap-8">
+          <form
+            ref={form}
+            onSubmit={submit}
+            noValidate
+            className="panel space-y-5"
+          >
+            {(["name", "email", "message"] as const).map((key) => (
+              <div key={key}>
+                <label
+                  className="block font-medium mb-2 capitalize"
+                  htmlFor={`contact-${key}`}
+                >
+                  {key}
+                </label>
+                {key === "message" ? (
+                  <textarea
+                    id={`contact-${key}`}
+                    name={key}
+                    value={data[key]}
+                    onChange={(e) => {
+                      setData({ ...data, [key]: e.target.value });
+                      setErrors({ ...errors, [key]: "" });
+                    }}
+                    required
+                    rows={5}
+                    maxLength={5000}
+                    aria-invalid={!!errors[key]}
+                    aria-describedby={errors[key] ? `${key}-error` : undefined}
+                    className="form-input"
+                  />
+                ) : (
+                  <input
+                    id={`contact-${key}`}
+                    name={key}
+                    type={key === "email" ? "email" : "text"}
+                    autoComplete={key}
+                    value={data[key]}
+                    onChange={(e) => {
+                      setData({ ...data, [key]: e.target.value });
+                      setErrors({ ...errors, [key]: "" });
+                    }}
+                    required
+                    maxLength={key === "name" ? 100 : 254}
+                    aria-invalid={!!errors[key]}
+                    aria-describedby={errors[key] ? `${key}-error` : undefined}
+                    className="form-input"
+                  />
+                )}
+                {errors[key] && (
+                  <p
+                    id={`${key}-error`}
+                    className="text-red-700 dark:text-red-300 text-sm mt-2"
+                  >
+                    {errors[key]}
+                  </p>
+                )}
+              </div>
+            ))}
+            <button
+              disabled={sending}
+              className="primary-button w-full disabled:opacity-60 disabled:cursor-wait"
+              type="submit"
+            >
+              <Send size={18} aria-hidden="true" />
+              {sending ? "Sending..." : "Send message"}
+            </button>
+            <p role="status" aria-live="polite" className="text-sm">
+              {status}
             </p>
+          </form>
+          <div className="space-y-6">
+            <article className="panel">
+              <Mail className="text-blue-600 mb-4" aria-hidden="true" />
+              <h3 className="text-xl font-bold mb-3">Contact Information</h3>
+              <a
+                className="text-blue-700 dark:text-blue-300 break-all underline underline-offset-4"
+                href="mailto:rifthanfathir33@gmail.com"
+              >
+                rifthanfathir33@gmail.com
+              </a>
+              <p className="section-copy mt-5">
+                Software Engineer at Imara Software Solutions (Pvt) Ltd
+              </p>
+              <div className="flex flex-wrap gap-3 mt-6">
+                <a
+                  className="secondary-button"
+                  href="https://github.com/Fathir2001"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub
+                </a>
+                <a
+                  className="secondary-button"
+                  href="https://www.linkedin.com/in/rifthan-fathir"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </article>
           </div>
         </div>
-      )}
+      </div>
     </section>
   );
-};
-
-export default Contact;
+}

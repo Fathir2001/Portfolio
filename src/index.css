@@ -263,3 +263,23 @@ html {
     0 20px 25px -5px rgba(59, 130, 246, 0.2),
     0 10px 10px -5px rgba(168, 85, 247, 0.1);
 }
+@layer components {
+  .panel { @apply rounded-2xl bg-white/90 dark:bg-primary-800/70 border border-blue-100 dark:border-primary-700 p-6 sm:p-8 shadow-lg text-gray-900 dark:text-white; }
+  .section-copy { @apply text-gray-600 dark:text-gray-300 leading-relaxed; }
+  .skill-badge { @apply inline-flex rounded-full px-3 py-1 text-xs font-semibold bg-blue-50 text-blue-800 dark:bg-blue-900/40 dark:text-blue-200 border border-blue-200 dark:border-blue-800; }
+  .primary-button { @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 bg-blue-700 hover:bg-blue-800 text-white font-semibold transition-colors; }
+  .secondary-button { @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 border border-blue-300 dark:border-blue-700 text-blue-800 dark:text-blue-200 hover:bg-blue-50 dark:hover:bg-blue-900/40 font-medium; }
+  .form-input { @apply w-full rounded-lg border border-gray-300 dark:border-primary-600 bg-white dark:bg-primary-900 text-gray-900 dark:text-white px-4 py-3; }
+}
+section { scroll-margin-top: 5rem; }
+:focus-visible { outline: 3px solid #2563eb; outline-offset: 4px; }
+.skip-link { position: fixed; top: -100px; left: 1rem; z-index: 100; background: white; color: #1e40af; padding: 1rem; }
+.skip-link:focus { top: 1rem; }
+.section-title { background-image: linear-gradient(135deg, #2563eb, #7c3aed); }
+.dark .section-title { background-image: linear-gradient(135deg, #60a5fa, #c4b5fd); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+section { overflow-x: clip; }

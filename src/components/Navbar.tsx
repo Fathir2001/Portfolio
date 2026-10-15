@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Grid2X2, Moon, Sun, X } from "lucide-react";
-import { useTheme } from "../context/theme";
+import { ArrowUpRight, Grid2X2, X } from "lucide-react";
+// import { Moon, Sun } from "lucide-react";
+// import { useTheme } from "../context/theme";
 import "./Navbar.css";
 
 const links = [["home", "Home"], ["projects", "Work"], ["experience", "Experience"], ["about", "About"], ["skills", "Skills"], ["education", "Education"], ["contact", "Let's talk"]];
 const COLLAPSE_DELAY = 6000;
 
 export default function Navbar() {
-  const { theme, toggleTheme } = useTheme();
+  // const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("home");
   const pendingNavigation = useRef<{ id: string; until: number } | null>(null);
@@ -89,18 +90,33 @@ export default function Navbar() {
       onBlur={() => open && restartTimer()}>
       <nav aria-label="Main navigation">
         <div className="island-top">
+          <a className="island-brand" href="#home" onClick={() => {
+            pendingNavigation.current = { id: "home", until: performance.now() + 2000 };
+            setActive("home"); collapse(false);
+          }}>
+            <span className="island-monogram" aria-hidden="true">rf<span>.</span></span>
+            <span className="island-identity"><strong>Rifthan Fathir</strong><span>Explore my portfolio</span></span>
+          </a>
+        <div className="studio-nav-links">
+          {[["home", "Home"], ["projects", "Projects"], ["experience", "Experience"], ["about", "About"], ["skills", "Skills"], ["education", "Education"], ["contact", "Contact"]].map(([id, label]) => <a key={id} href={`#${id}`} aria-current={active === id ? "location" : undefined}
+            onClick={() => { pendingNavigation.current = { id, until: performance.now() + 2000 }; setActive(id); collapse(false); }}>{label}</a>)}
+        </div>
           <button ref={trigger} className="island-trigger"
             aria-label={open ? "Close navigation" : "Open navigation"}
             aria-expanded={open} aria-controls="island-links"
             onClick={() => open ? collapse() : setOpen(true)}>
-            <span className="island-monogram" aria-hidden="true">rf<span>.</span></span>
-            <span className="island-identity"><strong>Rifthan Fathir</strong><span>{open ? "Find your next stop" : "Explore my portfolio"}</span></span>
             <span className="island-toggle-icon" aria-hidden="true">{open ? <X size={17} /> : <Grid2X2 size={17} />}</span>
           </button>
-          {open && <button className="island-theme" onClick={toggleTheme}
+          {/* Theme toggle temporarily disabled.
+          <button className="island-theme" onClick={toggleTheme}
             aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}>
             {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
-          </button>}
+          </button>
+          */}
+          <a className="studio-nav-contact" href="#contact" onClick={() => {
+            pendingNavigation.current = { id: "contact", until: performance.now() + 2000 };
+            setActive("contact"); collapse(false);
+          }}>Let's talk <ArrowUpRight size={17} /></a>
         </div>
         <div id="island-links" className="island-links" hidden={!open}>
           {links.map(([id, label]) => <a key={id} href={`#${id}`}

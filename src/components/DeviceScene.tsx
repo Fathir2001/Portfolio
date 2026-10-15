@@ -1,6 +1,7 @@
 import { Canvas, useLoader, useThree } from "@react-three/fiber";
 import { Suspense, useEffect } from "react";
 import { SRGBColorSpace, TextureLoader } from "three";
+import { useTheme } from "../context/theme";
 function Devices({
   project,
   rotation,
@@ -8,6 +9,7 @@ function Devices({
   project: string;
   rotation: [number, number];
 }) {
+  const { theme } = useTheme();
   const invalidate = useThree((state) => state.invalidate);
   const [desktop, mobile] = useLoader(TextureLoader, [
     `${import.meta.env.BASE_URL}images/screens/${project}-desktop.webp`,
@@ -19,6 +21,11 @@ function Devices({
     desktop.anisotropy = mobile.anisotropy = 4;
     invalidate();
   }, [desktop, mobile, invalidate]);
+  useEffect(() => {
+    // A theme change can clear the composited WebGL frame while the canvas
+    // is otherwise idle in demand rendering mode.
+    invalidate();
+  }, [theme, invalidate]);
   return (
     <group
       rotation={[rotation[0] * 0.12, -0.17 + rotation[1] * 0.3, -0.025]}

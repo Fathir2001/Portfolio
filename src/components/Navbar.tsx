@@ -10,6 +10,7 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("home");
+  const pendingNavigation = useRef<{ id: string; until: number } | null>(null);
   const island = useRef<HTMLElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const timer = useRef<ReturnType<typeof setTimeout>>();
@@ -34,15 +35,35 @@ export default function Navbar() {
   }, [open, restartTimer]);
   useEffect(() => {
     const onScroll = () => {
+      // Use a point within the visible content, since sections have generous
+      // top spacing and the floating island sits above them.
+      const activationLine = Math.min(window.innerHeight * 0.38, 360);
       let current = "home";
       for (const section of document.querySelectorAll("main > section")) {
-        if (section.getBoundingClientRect().top <= 160) current = section.id;
+        if (section.getBoundingClientRect().top <= activationLine) current = section.id;
+      }
+      const pending = pendingNavigation.current;
+      if (pending) {
+        if (current !== pending.id && performance.now() < pending.until) return;
+        pendingNavigation.current = null;
       }
       setActive(current);
     };
+    const onHashChange = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      if (id && document.getElementById(id)) {
+        pendingNavigation.current = { id, until: performance.now() + 2000 };
+        setActive(id);
+      }
+    };
+    onHashChange();
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("hashchange", onHashChange);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("hashchange", onHashChange);
+    };
   }, []);
   useEffect(() => {
     if (!open) return;
@@ -84,7 +105,11 @@ export default function Navbar() {
         <div id="island-links" className="island-links" hidden={!open}>
           {links.map(([id, label]) => <a key={id} href={`#${id}`}
             aria-current={active === id ? "location" : undefined}
-            onClick={() => collapse()}>{label}{id === "contact" && <ArrowUpRight size={14} />}</a>)}
+            onClick={() => {
+              pendingNavigation.current = { id, until: performance.now() + 2000 };
+              setActive(id);
+              collapse();
+            }}>{label}{id === "contact" && <ArrowUpRight size={14} />}</a>)}
         </div>
       </nav>
     </header>

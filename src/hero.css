@@ -58,4 +58,43 @@
 @media (max-width: 900px) and (min-width: 768px) { .hero-layout { gap: 24px; } .hero-copy h1 { font-size: 41px; letter-spacing: -2.4px; } .hero-proof { gap: 17px; flex-wrap: wrap; } .hero-proof > div:last-child { display: none; } .hero-gallery .showcase-stage { height: 230px; } .hero-gallery .showcase-top { padding: 18px 14px; font-size: 8px; } .hero-gallery .showcase-caption { padding-inline: 18px; min-height: 170px; } .hero-gallery .showcase-caption h2 { font-size: 23px; } .hero-person { gap: 8px; } }
 @media (max-width: 767px) { .hero-section { padding-top: 105px; } .hero-layout { grid-template-columns: 1fr; gap: 32px; } .hero-copy { padding: 0; } .hero-copy h1 { font-size: clamp(43px, 9.7vw, 68px); letter-spacing: -2.7px; } .hero-intro { margin-top: 22px; font-size: 15px; } .hero-description { max-width: 450px; font-size: 14px; margin-top: 20px; } .hero-actions { margin-top: 23px; gap: 23px; } .hero-proof { margin-top: 27px; padding-top: 23px; gap: 24px; } .hero-proof > div:last-child { padding-left: 20px; } .hero-proof > div:last-child strong { font-size: 14px; } .hero-proof span { font-size: 9px; } .hero-person { margin-top: 24px; } .hero-gallery .showcase-stage { height: auto; aspect-ratio: 1.65; } .hero-gallery .showcase-caption { min-height: 150px; padding: 20px 19px 12px; } .hero-gallery .showcase-caption h2 { font-size: 25px; } .hero-gallery .showcase-top { padding: 17px 18px; font-size: 8px; } .hero-gallery .showcase-live { display: flex !important; font-size: 7px; } .showcase-navigation { padding-inline: 19px; } .hero-baseline { margin-top: 30px; } }
 @media (max-width: 360px) { .hero-proof { gap: 16px; } .hero-proof > div:last-child { padding-left: 13px; } .hero-person .hero-socials { margin-left: 0; } }
+@media (min-width: 1101px) and (max-height: 820px) {
+  .hero-section { padding-top: 108px; }
+  .hero-layout { align-items: start; min-height: 0; }
+  .hero-copy { padding: 12px 0 0; }
+  .hero-intro { margin-top: 17px; }
+  .hero-copy h1 { font-size: clamp(48px, 4.1vw, 59px); line-height: 1.05; margin-top: 8px; }
+  .hero-description { margin-top: 16px; line-height: 1.7; }
+  .hero-actions { margin-top: 19px; }
+  .hero-proof { margin-top: 19px; padding-top: 16px; }
+  .hero-person { margin-top: 17px; }
+  .hero-gallery .showcase-top { padding-block: 13px; }
+  .hero-gallery .showcase-stage { height: 250px; }
+  .hero-gallery .showcase-caption { min-height: 112px; padding-top: 15px; padding-bottom: 8px; }
+  .hero-gallery .showcase-caption h2 { font-size: 23px; }
+  .showcase-description { min-height: 0; }
+  .showcase-navigation { padding-bottom: 6px; }
+  .hero-gallery .showcase-bottom { padding-block: 7px; }
+  .hero-gallery .showcase-switcher button { height: 43px; }
+  .hero-baseline { margin-top: 26px; }
+}
+@media (min-width: 768px) and (max-width: 1100px) and (max-height: 820px) {
+  .hero-section { padding-top: 110px; }
+  .hero-layout { min-height: 0; align-items: start; }
+  .hero-copy { padding: 0; }
+  .hero-intro { margin-top: 17px; }
+  .hero-copy h1 { margin-top: 8px; }
+  .hero-description { margin-top: 16px; line-height: 1.7; }
+  .hero-actions { margin-top: 19px; }
+  .hero-proof { margin-top: 20px; padding-top: 17px; }
+  .hero-person { margin-top: 17px; }
+  .hero-gallery .showcase-stage { height: 215px; }
+  .hero-gallery .showcase-top { padding-block: 14px; }
+  .hero-gallery .showcase-caption { min-height: 115px; padding-top: 14px; padding-bottom: 8px; }
+  .showcase-description { min-height: 0; }
+  .showcase-navigation { padding-bottom: 6px; }
+  .hero-gallery .showcase-bottom { padding-block: 7px; }
+  .hero-gallery .showcase-switcher button { height: 43px; }
+  .hero-baseline { margin-top: 26px; }
+}
 @media (prefers-reduced-motion: reduce) { .hero-gallery .showcase-fallback { animation: none; } .hero-actions .primary-button:hover { transform: none; } }

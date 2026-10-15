@@ -8,32 +8,12 @@
   type ReactNode,
 } from "react";
 import { useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Box, RotateCcw } from "lucide-react";
+import { ArrowUpRight, ArrowLeft, ArrowRight, Layers, RotateCcw } from "lucide-react";
 import covers from "../data/project-covers.json";
+import { projects, type Project } from "../data/projects";
 const DeviceScene = lazy(() => import("./DeviceScene"));
-const selections = [
-  {
-    id: "chem-is-try",
-    title: "CHEM IS TRY",
-    label: "Learning, connected.",
-    kind: "WEB + MOBILE",
-    url: "https://chem-is-try-admin.netlify.app/",
-  },
-  {
-    id: "pink-cosmetics",
-    title: "Pink Cosmetics",
-    label: "Commerce with character.",
-    kind: "E-COMMERCE",
-    url: "https://pink-cosmetics.netlify.app/",
-  },
-  {
-    id: "hireme",
-    title: "HireMe",
-    label: "Services, made simpler.",
-    kind: "FULL-STACK PLATFORM",
-    url: "https://hireme-f.netlify.app/",
-  },
-];
+const imageFor = (project: Project) => `${import.meta.env.BASE_URL}${(covers as Record<string, string>)[project.id || ""] || project.image}`;
+const deviceProjects = new Set(["chem-is-try", "pink-cosmetics", "hireme"]);
 class SceneBoundary extends Component<
   { children: ReactNode; fallback: ReactNode },
   { failed: boolean }
@@ -69,29 +49,38 @@ export default function DeviceShowcase() {
     if (container.current) observer.observe(container.current);
     return () => observer.disconnect();
   }, []);
-  const project = selections[selected];
+  const project = projects[selected];
+  const hasDevices = enabled && deviceProjects.has(project.id || "");
+  const selectProject = (index: number) => {
+    const next = (index + projects.length) % projects.length;
+    setSelected(next);
+    setRotation([0, 0]);
+    const rail = container.current?.querySelector('.showcase-switcher');
+    const button = rail?.children[next] as HTMLElement | undefined;
+    if (rail && button) rail.scrollTo({ left: button.offsetLeft - (rail.clientWidth - button.clientWidth) / 2, behavior: reduced ? 'instant' : 'smooth' });
+  };
   const fallback = (
     <img
       className="showcase-fallback"
-      src={`${import.meta.env.BASE_URL}${(covers as Record<string, string>)[project.id]}`}
-      alt={`${project.title}: actual desktop and mobile interfaces`}
+      key={project.title}
+      src={imageFor(project)}
+      alt={`${project.title} project preview`}
       width={1280}
       height={720}
     />
   );
   return (
-    <div className="showcase" ref={container}>
+    <div className="showcase hero-gallery" ref={container} aria-label="Portfolio project showcase">
       <div className="showcase-top">
         <span>
-          <Box size={15} /> SELECTED WORK /{" "}
-          {String(selected + 1).padStart(2, "0")}
+          <Layers size={15} /> THE PROJECT COLLECTION
         </span>
         <span className="showcase-live">
-          <span /> LIVE PROJECT
+          <span /> {project.category.toUpperCase()}
         </span>
       </div>
       <div
-        className="showcase-stage"
+        className={`showcase-stage ${hasDevices ? 'has-devices' : 'has-preview'}`}
         onPointerMove={(event) => {
           if (!enabled || !visible) return;
           const rect = event.currentTarget.getBoundingClientRect();
@@ -104,11 +93,12 @@ export default function DeviceShowcase() {
       >
         <div className="showcase-orbit orbit-one" aria-hidden="true" />
         <div className="showcase-orbit orbit-two" aria-hidden="true" />
-        {enabled ? (
-          <SceneBoundary fallback={fallback}>
+        <span className="showcase-watermark" aria-hidden="true">{String(selected + 1).padStart(2, "0")}</span>
+        {hasDevices ? (
+          <SceneBoundary key={project.id} fallback={fallback}>
             <Suspense fallback={fallback}>
               <DeviceScene
-                project={project.id}
+                project={project.id!}
                 rotation={rotation}
                 active={visible}
               />
@@ -118,19 +108,28 @@ export default function DeviceShowcase() {
           fallback
         )}
       </div>
-      <div className="showcase-caption">
-        <div>
-          <p>{project.kind}</p>
-          <h2 aria-live="polite">{project.label}</h2>
+      <div className="showcase-caption" aria-live="polite" aria-atomic="true">
+        <div className="showcase-project-info">
+          <p>{project.live ? 'LIVE ON THE WEB' : 'IDEAS PUT INTO PRACTICE'}</p>
+          <h2>{project.title}</h2>
+          <div className="showcase-description">{project.description}</div>
         </div>
         <a
-          href={project.url}
+          href={project.live || project.github?.[0]?.link || '#projects'}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`Open ${project.title} live website`}
+          aria-label={`Open ${project.title} ${project.live ? 'live website' : 'source code'}`}
         >
           <ArrowUpRight size={23} />
         </a>
+      </div>
+      <div className="showcase-navigation">
+        <span><strong>{String(selected + 1).padStart(2, '0')}</strong> / {projects.length} <span className="gallery-browse-label">— Explore the collection</span></span>
+        <div>
+          {hasDevices && <button className="scene-reset" onClick={() => setRotation([0, 0])} aria-label="Reset device angle"><RotateCcw size={15} /></button>}
+          <button onClick={() => selectProject(selected - 1)} aria-label="Previous project"><ArrowLeft size={18} /></button>
+          <button onClick={() => selectProject(selected + 1)} aria-label="Next project"><ArrowRight size={18} /></button>
+        </div>
       </div>
       <div className="showcase-bottom">
         <div
@@ -138,26 +137,19 @@ export default function DeviceShowcase() {
           role="group"
           aria-label="Choose showcase project"
         >
-          {selections.map((item, index) => (
+          {projects.map((item, index) => (
             <button
-              key={item.id}
-              onClick={() => {
-                setSelected(index);
-                setRotation([0, 0]);
-              }}
+              key={item.title}
+              onClick={() => selectProject(index)}
               aria-pressed={selected === index}
+              aria-label={item.title}
+              title={item.title}
             >
-              {item.title}
+              <img src={imageFor(item)} alt="" width={96} height={60} loading="lazy" />
+              <span>{String(index + 1).padStart(2, '0')}</span>
             </button>
           ))}
         </div>
-        <button
-          className="scene-reset"
-          onClick={() => setRotation([0, 0])}
-          aria-label="Reset device angle"
-        >
-          <RotateCcw size={15} />
-        </button>
       </div>
     </div>
   );

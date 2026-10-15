@@ -1,24 +1,43 @@
-﻿import { useEffect, useRef, useState } from "react";
-import { Menu, Moon, Sun, X, ArrowUpRight } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowUpRight, Grid2X2, Moon, Sun, X } from "lucide-react";
 import { useTheme } from "../context/theme";
-const links = [
-  ["projects", "Work"],
-  ["experience", "Experience"],
-  ["about", "About"],
-  ["skills", "Skills"],
-  ["education", "Education"],
-];
+import "./Navbar.css";
+
+const links = [["home", "Home"], ["projects", "Work"], ["experience", "Experience"], ["about", "About"], ["skills", "Skills"], ["education", "Education"], ["contact", "Let's talk"]];
+const COLLAPSE_DELAY = 6000;
+
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("home");
-  const menuButton = useRef<HTMLButtonElement>(null);
+  const island = useRef<HTMLElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const timer = useRef<ReturnType<typeof setTimeout>>();
+
+  const collapse = useCallback((restoreFocus = true) => {
+    clearTimeout(timer.current);
+    if (restoreFocus && island.current?.contains(document.activeElement)) trigger.current?.focus();
+    setOpen(false);
+  }, []);
+  const restartTimer = useCallback(() => {
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      // Do not hide navigation while a keyboard user is focused inside it.
+      const focused = document.activeElement;
+      if (focused && island.current?.contains(focused) && focused.matches(":focus-visible")) return;
+      collapse();
+    }, COLLAPSE_DELAY);
+  }, [collapse]);
+  useEffect(() => {
+    if (open) restartTimer();
+    return () => clearTimeout(timer.current);
+  }, [open, restartTimer]);
   useEffect(() => {
     const onScroll = () => {
-      const sections = [...document.querySelectorAll("main > section")];
       let current = "home";
-      for (const section of sections)
+      for (const section of document.querySelectorAll("main > section")) {
         if (section.getBoundingClientRect().top <= 160) current = section.id;
+      }
       setActive(current);
     };
     onScroll();
@@ -26,83 +45,48 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   useEffect(() => {
-    const close = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && open) {
-        setOpen(false);
-        menuButton.current?.focus();
-      }
+    if (!open) return;
+    const outside = (event: PointerEvent) => {
+      if (!island.current?.contains(event.target as Node)) collapse(false);
     };
-    const resize = () => {
-      if (innerWidth >= 1024) setOpen(false);
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") collapse();
     };
-    window.addEventListener("keydown", close);
-    window.addEventListener("resize", resize);
+    document.addEventListener("pointerdown", outside);
+    document.addEventListener("keydown", escape);
     return () => {
-      window.removeEventListener("keydown", close);
-      window.removeEventListener("resize", resize);
+      document.removeEventListener("pointerdown", outside);
+      document.removeEventListener("keydown", escape);
     };
-  }, [open]);
+  }, [open, collapse]);
+
   return (
-    <header className="site-header">
-      <nav className="page-width nav-inner" aria-label="Main navigation">
-        <a
-          href="#home"
-          className="wordmark"
-          onClick={() => setOpen(false)}
-          aria-label="Rifthan Fathir home"
-        >
-          rf<span>.</span>
-          <span className="wordmark-name">Rifthan Fathir</span>
-        </a>
-        <div className="desktop-nav">
-          {links.map(([id, label]) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              aria-current={active === id ? "location" : undefined}
-            >
-              {label}
-            </a>
-          ))}
-        </div>
-        <div className="nav-actions">
-          <button
-            className="icon-button"
-            onClick={toggleTheme}
-            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-          >
-            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-          <a href="#contact" className="nav-contact">
-            Let's talk <ArrowUpRight size={16} />
-          </a>
-          <button
-            ref={menuButton}
-            className="icon-button mobile-toggle"
+    <header ref={island} className={`nav-island ${open ? "is-expanded" : ""}`}
+      onPointerMove={() => open && restartTimer()}
+      onPointerDown={() => open && restartTimer()}
+      onKeyDown={() => open && restartTimer()}
+      onBlur={() => open && restartTimer()}>
+      <nav aria-label="Main navigation">
+        <div className="island-top">
+          <button ref={trigger} className="island-trigger"
             aria-label={open ? "Close navigation" : "Open navigation"}
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
+            aria-expanded={open} aria-controls="island-links"
+            onClick={() => open ? collapse() : setOpen(true)}>
+            <span className="island-monogram" aria-hidden="true">rf<span>.</span></span>
+            <span className="island-identity"><strong>Rifthan Fathir</strong><span>{open ? "Find your next stop" : "Explore my portfolio"}</span></span>
+            <span className="island-toggle-icon" aria-hidden="true">{open ? <X size={17} /> : <Grid2X2 size={17} />}</span>
           </button>
+          {open && <button className="island-theme" onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}>
+            {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
+          </button>}
+        </div>
+        <div id="island-links" className="island-links" hidden={!open}>
+          {links.map(([id, label]) => <a key={id} href={`#${id}`}
+            aria-current={active === id ? "location" : undefined}
+            onClick={() => collapse()}>{label}{id === "contact" && <ArrowUpRight size={14} />}</a>)}
         </div>
       </nav>
-      {open && (
-        <div id="mobile-menu" className="mobile-menu">
-          {[...links, ["contact", "Contact"]].map(([id, label]) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              aria-current={active === id ? "location" : undefined}
-              onClick={() => setOpen(false)}
-            >
-              {label}
-              <ArrowUpRight size={16} />
-            </a>
-          ))}
-        </div>
-      )}
     </header>
   );
 }

@@ -1,27 +1,30 @@
 ﻿import { motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Github, Linkedin } from "lucide-react";
 import DeviceShowcase from "./DeviceShowcase";
+import { useReducedMotion } from "framer-motion";
+import { projects, production } from "../data/projects";
 export default function Hero() {
+  const reduced = useReducedMotion();
   return (
     <section id="home" className="hero-section">
       <div className="hero-grid" aria-hidden="true" />
+      <div className="hero-glow" aria-hidden="true" />
       <div className="page-width relative">
         <div className="hero-layout">
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={reduced ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="hero-copy"
           >
             <div className="eyebrow">
-              <span className="status-dot" /> SOFTWARE ENGINEER / FULL-STACK
-              DEVELOPER
+              <span className="status-dot" /> FROM IDEA TO EXPERIENCE
             </div>
             <p className="hero-intro">Hello, I'm Rifthan Fathir.</p>
             <h1>
               Thoughtful code.
               <br />
-              <span>Useful experiences.</span>
+              <span>Lasting impact<span className="hero-period">.</span></span>
             </h1>
             <p className="hero-description">
               I turn complex workflows into intuitive software — from enterprise
@@ -34,6 +37,11 @@ export default function Hero() {
               <a href="#contact" className="text-link">
                 Let's talk <ArrowUpRight size={17} />
               </a>
+            </div>
+            <div className="hero-proof" aria-label="Portfolio at a glance">
+              <div><strong>{String(projects.length).padStart(2, '0')}</strong><span>Projects built</span></div>
+              <div><strong>{String(production.length).padStart(2, '0')}</strong><span>Live experiences</span></div>
+              <div><strong>Web + Mobile</strong><span>Interface to infrastructure</span></div>
             </div>
             <div className="hero-person">
               <img
@@ -77,7 +85,7 @@ export default function Hero() {
             <ArrowDown size={15} /> SCROLL TO DISCOVER
           </a>
           <span>
-            ENTERPRISE SYSTEMS <i /> WEB APPLICATIONS <i /> MOBILE EXPERIENCES
+            DESIGN WITH INTENT <i /> BUILD WITH PRECISION <i /> DELIVER WITH CARE
           </span>
         </div>
       </div>

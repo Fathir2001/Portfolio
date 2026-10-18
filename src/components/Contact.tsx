@@ -1,183 +1,41 @@
-import emailjs from "emailjs-com";
-import { useRef, useState, type FormEvent } from "react";
-import { Mail, Send } from "lucide-react";
-const empty = { name: "", email: "", message: "" };
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Mail, User, Briefcase, Code2, Github, Linkedin, ArrowUpRight, MessageSquare, Users, Rocket } from "lucide-react";
+import ContactForm from "./ContactForm";
+import HolographicEnvelope from "./HolographicEnvelope";
+import "./Contact.css";
+
+const features = [
+  { icon: MessageSquare, title: "Meaningful Conversations", text: "Let's discuss your ideas." },
+  { icon: Code2, title: "Real Solutions", text: "Turn ideas into working software." },
+  { icon: Users, title: "New Opportunities", text: "Open to meaningful collaborations." },
+  { icon: Rocket, title: "Continuous Growth", text: "Build something better together." },
+];
+function ContactInformation() {
+  return <aside className="ct-panel ct-information" aria-labelledby="ct-info-title">
+    <div className="ct-panel-header"><span className="ct-header-icon"><User size={27} strokeWidth={1.5} aria-hidden="true" /></span><div><h3 id="ct-info-title">Contact Information</h3><p>Let's connect through your preferred channel.</p></div></div>
+    <div className="ct-info-rows">
+      <a className="ct-info-row" href="mailto:rifthanfathir33@gmail.com"><span className="ct-row-icon"><Mail aria-hidden="true" /></span><div><strong>rifthanfathir33@gmail.com</strong><p>Email me directly</p></div><ArrowUpRight size={18} aria-hidden="true" /></a>
+      <div className="ct-info-row"><span className="ct-row-icon"><Briefcase aria-hidden="true" /></span><div><strong>Software Engineer</strong><p>Imara Software Solutions (Pvt) Ltd</p></div></div>
+      <div className="ct-info-row"><span className="ct-row-icon"><Code2 aria-hidden="true" /></span><div><strong>Web, mobile &amp; enterprise software</strong><p>From approachable interfaces to reliable systems.</p></div></div>
+    </div>
+    <div className="ct-socials"><h4>Connect with me</h4><p>Find me on these platforms.</p><div>
+      <a href="https://github.com/Fathir2001" target="_blank" rel="noopener noreferrer" aria-label="Rifthan Fathir on GitHub (opens in a new tab)"><Github size={20} aria-hidden="true" />GitHub<ArrowUpRight size={16} aria-hidden="true" /></a>
+      <a href="https://www.linkedin.com/in/rifthan-fathir" target="_blank" rel="noopener noreferrer" aria-label="Rifthan Fathir on LinkedIn (opens in a new tab)"><Linkedin size={20} aria-hidden="true" />LinkedIn<ArrowUpRight size={16} aria-hidden="true" /></a>
+    </div></div>
+  </aside>;
+}
 export default function Contact() {
-  const [data, setData] = useState(empty);
-  const [errors, setErrors] = useState(empty);
-  const [status, setStatus] = useState("");
-  const [sending, setSending] = useState(false);
-  const busy = useRef(false);
-  const form = useRef<HTMLFormElement>(null);
-  async function submit(event: FormEvent) {
-    event.preventDefault();
-    if (busy.current) return;
-    const clean = {
-      name: data.name.trim(),
-      email: data.email.trim(),
-      message: data.message.trim(),
-    };
-    const next = {
-      name:
-        clean.name.length < 2
-          ? "Please enter at least 2 characters for your name."
-          : "",
-      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean.email)
-        ? ""
-        : "Please enter a valid email address.",
-      message:
-        clean.message.length < 10
-          ? "Please write a message of at least 10 characters."
-          : "",
-    };
-    setErrors(next);
-    setStatus("");
-    const invalid = (Object.keys(next) as (keyof typeof next)[]).find(
-      (key) => next[key],
-    );
-    if (invalid) {
-      (form.current?.elements.namedItem(invalid) as HTMLElement)?.focus();
-      return;
-    }
-    busy.current = true;
-    setSending(true);
-    try {
-      await emailjs.send(
-        "service_oyyto7g",
-        "template_ewlzi49",
-        clean,
-        "Glai-R1daTW_8_mbt",
-      );
-      setStatus("Thank you! Your message was sent successfully.");
-      setData(empty);
-    } catch {
-      setStatus(
-        "Your message could not be sent. Please try again or email me directly using the link below.",
-      );
-    } finally {
-      busy.current = false;
-      setSending(false);
-    }
-  }
-  return (
-    <section id="contact" className="contact-section">
-      <div className="page-width">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">06 / START A CONVERSATION</p>
-            <h2 className="section-title">Let’s Build Something Useful</h2>
-          </div>
-          <p className="section-copy">
-            Have a project in mind or want to discuss software development? Get
-            in touch.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-2 gap-8">
-          <form
-            ref={form}
-            onSubmit={submit}
-            noValidate
-            className="panel space-y-5"
-          >
-            {(["name", "email", "message"] as const).map((key) => (
-              <div key={key}>
-                <label
-                  className="block font-medium mb-2 capitalize"
-                  htmlFor={`contact-${key}`}
-                >
-                  {key}
-                </label>
-                {key === "message" ? (
-                  <textarea
-                    id={`contact-${key}`}
-                    name={key}
-                    value={data[key]}
-                    onChange={(e) => {
-                      setData({ ...data, [key]: e.target.value });
-                      setErrors({ ...errors, [key]: "" });
-                    }}
-                    required
-                    rows={5}
-                    maxLength={5000}
-                    aria-invalid={!!errors[key]}
-                    aria-describedby={errors[key] ? `${key}-error` : undefined}
-                    className="form-input"
-                  />
-                ) : (
-                  <input
-                    id={`contact-${key}`}
-                    name={key}
-                    type={key === "email" ? "email" : "text"}
-                    autoComplete={key}
-                    value={data[key]}
-                    onChange={(e) => {
-                      setData({ ...data, [key]: e.target.value });
-                      setErrors({ ...errors, [key]: "" });
-                    }}
-                    required
-                    maxLength={key === "name" ? 100 : 254}
-                    aria-invalid={!!errors[key]}
-                    aria-describedby={errors[key] ? `${key}-error` : undefined}
-                    className="form-input"
-                  />
-                )}
-                {errors[key] && (
-                  <p
-                    id={`${key}-error`}
-                    className="text-red-700 dark:text-red-300 text-sm mt-2"
-                  >
-                    {errors[key]}
-                  </p>
-                )}
-              </div>
-            ))}
-            <button
-              disabled={sending}
-              className="primary-button w-full disabled:opacity-60 disabled:cursor-wait"
-              type="submit"
-            >
-              <Send size={18} aria-hidden="true" />
-              {sending ? "Sending..." : "Send message"}
-            </button>
-            <p role="status" aria-live="polite" className="text-sm">
-              {status}
-            </p>
-          </form>
-          <div className="space-y-6">
-            <article className="panel">
-              <Mail className="text-blue-600 mb-4" aria-hidden="true" />
-              <h3 className="text-xl font-bold mb-3">Contact Information</h3>
-              <a
-                className="text-blue-700 dark:text-blue-300 break-all underline underline-offset-4"
-                href="mailto:rifthanfathir33@gmail.com"
-              >
-                rifthanfathir33@gmail.com
-              </a>
-              <p className="section-copy mt-5">
-                Software Engineer at Imara Software Solutions (Pvt) Ltd
-              </p>
-              <div className="flex flex-wrap gap-3 mt-6">
-                <a
-                  className="secondary-button"
-                  href="https://github.com/Fathir2001"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GitHub
-                </a>
-                <a
-                  className="secondary-button"
-                  href="https://www.linkedin.com/in/rifthan-fathir"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  const reduced = useReducedMotion();
+  const [pageVisible, setPageVisible] = useState(!document.hidden);
+  useEffect(() => { const update = () => setPageVisible(!document.hidden); document.addEventListener("visibilitychange", update); return () => document.removeEventListener("visibilitychange", update); }, []);
+  const reveal = (delay = 0) => ({ initial: { opacity: 0, y: reduced ? 0 : 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: .15 }, transition: { duration: reduced ? 0 : .6, delay: reduced ? 0 : delay } });
+  return <section id="contact" className="ct-section" aria-labelledby="ct-title"><div className="page-width">
+    <div className="ct-heading"><div><motion.p className="ct-eyebrow" {...reveal()}>06 / START A CONVERSATION</motion.p>
+      <h2 id="ct-title"><motion.span {...reveal(.05)}>Let's Build</motion.span><motion.span {...reveal(.12)}>Something <em>Useful.</em></motion.span></h2>
+      <motion.p className="ct-intro" {...reveal(.18)}>Have a project in mind or want to discuss software development? Get in touch. I'm always open to meaningful conversations and new opportunities.</motion.p>
+    </div><motion.div {...reveal(.15)}><HolographicEnvelope pageVisible={pageVisible} /></motion.div></div>
+    <div className="ct-grid"><motion.div {...reveal()}><ContactForm /></motion.div><motion.div {...reveal(.1)}><ContactInformation /></motion.div></div>
+    <motion.aside className="ct-features" aria-label="Let's work together" {...reveal(.1)}>{features.map(({ icon: Icon, title, text }) => <div key={title}><span className="ct-feature-icon"><Icon size={25} strokeWidth={1.5} aria-hidden="true" /></span><div><h3>{title}</h3><p>{text}</p></div></div>)}</motion.aside>
+  </div></section>;
 }

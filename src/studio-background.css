@@ -1,4 +1,4 @@
-/* One viewport-fixed scene spans Hero through Education. Clip it at their outer
+/* One viewport-fixed scene spans Hero through Contact. Clip it at their outer
    boundary, rather than restarting the image at each section. */
 .studio-continuum { position: relative; isolation: isolate; clip-path: inset(0); background: #090f20; }
 .studio-fixed-background { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; background: #090f20; }

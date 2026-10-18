@@ -33,10 +33,10 @@ function App() {
               <About />
               <Skills />
               <Education />
+              <Contact />
             </div>
-            <Contact />
           </main>
-          <footer className="site-footer">
+          <footer className="site-footer ct-footer">
             <div className="page-width">
               <a href="#home" className="wordmark">
                 rf<span>.</span>

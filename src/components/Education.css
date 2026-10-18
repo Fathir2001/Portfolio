@@ -1,0 +1,82 @@
+/* Education is scoped to the shared cinematic environment. */
+.ed-section { position: relative; isolation: isolate; overflow: clip; color: #e9f0ff; padding: 80px 0 85px; }
+.ed-container { position: relative; width: min(1440px, calc(100% - 112px)); margin: auto; }
+.ed-atmosphere { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(180deg, #090f2030, #090f2066 50%, #090f2099); }
+.ed-atmosphere > div { position: absolute; width: 650px; height: 650px; left: -530px; top: 20%; border-radius: 50%; border: 1px solid #3478ff33; box-shadow: inset -15px 0 25px #3478ff0d; }
+.ed-atmosphere > i { position: absolute; top: 12%; left: 5%; width: 3px; height: 3px; border-radius: 50%; background: #a1d8ff; box-shadow: 0 0 10px #3478ff; }.ed-atmosphere > i:nth-child(2) { top: 80%; left: 95%; }
+.ed-header { display: grid; grid-template-columns: .9fr 1.2fr; align-items: center; gap: 42px; margin-bottom: 35px; }
+.ed-eyebrow { margin: 0 0 17px; font: 600 10px/1.6 ui-monospace, monospace; letter-spacing: 2px; color: #77baff; text-transform: uppercase; }
+.ed-header h2 { margin: 0 0 20px; font-size: clamp(38px, 4.2vw, 64px); font-weight: 750; line-height: 1.08; letter-spacing: -.05em; }
+.ed-header h2 > span { display: block; }.ed-gradient { color: #65b8ff; background: linear-gradient(100deg, #44caff, #477cff 45%, #9a60ff 90%); background-clip: text; -webkit-text-fill-color: transparent; }
+.ed-intro { color: #b6c8e6; font-size: 14px; line-height: 1.85; max-width: 470px; margin: 0; }
+.ed-hologram { display: flex; align-items: center; position: relative; min-height: 275px; }
+.ed-cap-scene { position: relative; width: 70%; max-width: 430px; margin-left: -2%; flex-shrink: 0; }
+.ed-cap-art { display: block; width: 100%; height: auto; overflow: visible; }
+.ed-cap-float { transform-origin: 50% 45%; animation: ed-cap-float 6s ease-in-out infinite; filter: drop-shadow(0 0 5px #3478ff88); }
+.ed-cap-platform ellipse { fill: #10347d15; stroke: #65b8ffa6; stroke-width: 1; }.ed-cap-platform ellipse:first-child { stroke: #3478ff55; }.ed-cap-platform ellipse:nth-child(2) { stroke: #65d8ff; filter: drop-shadow(0 0 5px #3478ff); }.ed-cap-platform ellipse:last-child { stroke: #9983ff88; animation: ed-ring-light 5s ease-in-out infinite; }
+.ed-cap-orbit path { fill: none; stroke: #3478ff99; stroke-width: 1; }.ed-cap-orbit circle { fill: #b7efff; filter: drop-shadow(0 0 5px #3478ff); }
+.ed-fragment { fill: #3478ff0d; stroke: #578eff70; stroke-width: 1; }
+.ed-info-panel { position: relative; z-index: 2; display: flex; align-items: center; gap: 14px; padding: 20px 17px; margin-left: -3%; border: 1px solid #4c93ed99; border-radius: 16px; background: linear-gradient(130deg, #102c56e6, #0c1a39e8); box-shadow: inset 0 0 15px #3478ff15, 0 0 16px #3478ff16; transform: rotate(-3deg); animation: ed-panel-float 7s ease-in-out infinite; }
+.ed-info-panel > span { width: 43px; height: 47px; display: grid; place-items: center; flex-shrink: 0; color: #abd9ff; border: 1px solid #3478ff66; border-radius: 11px; background: #153b7866; box-shadow: inset 0 0 12px #3478ff22; }
+.ed-info-panel p { font-size: 12px; line-height: 1.8; color: #b8cced; margin: 0; }.ed-info-panel strong { font-weight: 500; color: #e0edff; }
+.ed-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.ed-card-shell { display: flex; min-width: 0; perspective: 1100px; }
+.ed-card { position: relative; isolation: isolate; width: 100%; padding: 26px 28px; border: 1px solid #438df3b3; border-radius: 19px; background: linear-gradient(135deg, #0d2242ef, #08172ded 70%, #13264dec); box-shadow: inset 0 1px 0 #65b8ff22, 0 12px 28px #02091a40; transition: translate .35s, border-color .35s, box-shadow .35s; }
+.ed-card::before { content: ''; position: absolute; pointer-events: none; bottom: -1px; right: -1px; width: 55px; height: 55px; border: 2px solid transparent; border-bottom-color: #9e83ff; border-right-color: #805bff; border-radius: 0 0 19px 0; filter: drop-shadow(0 0 5px #805bff77); }
+.ed-card-light { position: absolute; z-index: -1; inset: 0; border-radius: inherit; pointer-events: none; }
+.ed-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.ed-degree-icon { display: grid; place-items: center; width: 54px; height: 56px; border: 1px solid #3478ff99; border-radius: 13px; color: #b2e1ff; background: linear-gradient(135deg, #1d4e9a66, #11275399); box-shadow: inset 0 0 13px #3478ff22, 0 0 14px #3478ff15; transition: transform .35s, box-shadow .35s; }
+.ed-completed { display: inline-flex; align-items: center; gap: 9px; padding: 8px 12px; color: #baf8e9; border: 1px solid #2da4b15c; border-radius: 24px; background: #10364280; font: 600 9px/1.5 ui-monospace, monospace; letter-spacing: .6px; text-transform: uppercase; transition: box-shadow .3s; }
+.ed-completed i { width: 7px; height: 7px; border-radius: 50%; background: #47e7c6; box-shadow: 0 0 8px #47e7c677; }
+.ed-card h3 { color: #f0f4ff; font-size: 22px; line-height: 1.4; font-weight: 650; letter-spacing: -.5px; margin: 0 0 9px; }
+.ed-institution { color: #b9d0f3; font-size: 13px; line-height: 1.7; margin: 0; }
+.ed-date { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin: 20px 0 17px; padding-top: 16px; border-top: 1px solid #4278c566; color: #a7c5ee; }
+.ed-date > svg { color: #9c9eff; flex-shrink: 0; }.ed-date strong { color: #c3d8f6; font-size: 12px; font-weight: 500; }.ed-date > span { margin-left: auto; padding-left: 15px; border-left: 1px solid #3478ff44; color: #91add7; font: 9px/1.5 ui-monospace, monospace; }
+.ed-description { font-size: 13px; line-height: 1.85; color: #b7c9e8; margin: 0; position: relative; }
+.ed-academic-art { position: absolute; z-index: -1; right: 10px; bottom: 5px; width: 225px; height: 120px; stroke: #65b8ff; stroke-width: 1; opacity: .1; mask-image: linear-gradient(90deg, transparent, black); transition: translate .35s, opacity .35s; pointer-events: none; }
+.ed-journey { margin: 30px 0; padding: 0 12px; }.ed-journey > h3 { font-size: 9px; letter-spacing: 1.5px; color: #95b5e3; margin-bottom: 17px; }
+.ed-journey-body { position: relative; }.ed-journey-track { position: absolute; top: 9px; left: 10px; right: 10px; height: 1px; background: #3478ff33; }.ed-journey-track > div { position: absolute; inset: 0; background: linear-gradient(90deg, #65d7ff, #3478ff, #a079ff); box-shadow: 0 0 8px #3478ff88; }
+.ed-journey ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; list-style: none; margin: 0; padding: 0; }
+.ed-journey li { position: relative; padding-top: 28px; }.ed-journey li:nth-child(2) { text-align: center; }.ed-journey li:last-child { text-align: right; }
+.ed-milestone-node { position: absolute; top: 0; left: 0; display: grid; place-items: center; width: 19px; height: 19px; border: 1px solid #65b8ff; border-radius: 50%; background: #0d244a; color: #a9f9e8; box-shadow: 0 0 10px #3478ff66; }
+.ed-milestone-node > i { width: 7px; height: 7px; border-radius: 50%; background: #65b8ff; }.ed-journey li:nth-child(2) .ed-milestone-node { left: calc(50% - 9px); }.ed-journey li:last-child .ed-milestone-node { left: auto; right: 0; border-color: #70dbcb; }
+.ed-journey time { font: 600 13px/1.6 ui-monospace, monospace; color: #d5e6ff; }.ed-journey li > p { font-size: 11px; line-height: 1.7; color: #a6bee0; margin: 4px 0 0; }
+.ed-learning { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; padding: 23px 10px; border: 1px solid #4380d899; border-radius: 17px; background: linear-gradient(115deg, #102649df, #091a36df); box-shadow: inset 0 1px 0 #65b8ff1a; }
+.ed-learning > div { display: flex; align-items: center; gap: 14px; padding: 0 20px; border-left: 1px solid #4374bd55; }.ed-learning > div:first-child { border-left: 0; }
+.ed-feature-icon { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 47px; border: 1px solid #3478ff77; border-radius: 11px; color: #93caff; background: #17386b66; transition: transform .3s; }
+.ed-learning h3 { margin: 0 0 7px; color: #dce8ff; font-size: 12px; font-weight: 600; line-height: 1.4; }.ed-learning p { font-size: 11px; line-height: 1.7; color: #a7bfe1; margin: 0; }
+.ed-section[data-active=false] *, .ed-hologram[data-active=false] * { animation-play-state: paused !important; }
+@keyframes ed-cap-float { 50% { transform: translateY(-7px) rotate(2deg); } }
+@keyframes ed-panel-float { 50% { transform: translateY(-5px) rotate(-2deg); } }
+@keyframes ed-ring-light { 50% { opacity: .4; } }
+@media (hover: hover) and (pointer: fine) {
+  .ed-card:hover { translate: 0 -5px; border-color: #83bdff; box-shadow: 0 0 24px #3478ff25, inset 0 1px 0 #65b8ff44; }
+  .ed-card:hover .ed-degree-icon { transform: translateY(-3px); box-shadow: 0 0 22px #3478ff44; }.ed-card:hover .ed-academic-art { translate: -5px -3px; opacity: .18; }.ed-card:hover .ed-completed { box-shadow: 0 0 12px #47e7c61f; }
+  .ed-learning > div:hover .ed-feature-icon { transform: translateY(-3px); }
+}
+@media (max-width: 1199px) {
+  .ed-container { width: calc(100% - 64px); }.ed-header { grid-template-columns: 1fr 1.15fr; gap: 20px; }.ed-hologram { flex-direction: column; min-height: 270px; }.ed-cap-scene { width: min(100%, 350px); margin: 0; }.ed-info-panel { padding: 12px 17px; margin: -10px 0 0; gap: 12px; }.ed-info-panel p { font-size: 11px; }.ed-info-panel > span { width: 35px; height: 37px; }.ed-info-panel br { display: none; }.ed-info-panel strong { margin-left: 6px; }
+  .ed-card { padding: 23px; }.ed-card h3 { font-size: 20px; }.ed-learning { grid-template-columns: 1fr 1fr; gap: 22px 0; }.ed-learning > div:nth-child(3) { border-left: 0; }
+}
+@media (max-width: 767px) {
+  .ed-section { padding: 55px 0 65px; }.ed-container { width: calc(100% - 40px); }.ed-header { grid-template-columns: 1fr; gap: 5px; margin-bottom: 28px; }.ed-eyebrow { font-size: 9px; }.ed-header h2 { font-size: clamp(37px, 9vw, 48px); }.ed-intro { font-size: 13px; }
+  .ed-hologram { min-height: 0; }.ed-cap-scene { width: 290px; max-width: 100%; }.ed-info-panel { margin-top: -8px; }.ed-info-panel p { font-size: 11px; }
+  .ed-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }.ed-card { padding: 21px 18px; }.ed-card h3 { font-size: 20px; line-height: 1.4; }.ed-institution { font-size: 12px; }.ed-description { font-size: 12px; }.ed-degree-icon { width: 48px; height: 49px; }.ed-completed { font-size: 8px; padding: 8px 10px; }.ed-card-top { margin-bottom: 17px; }.ed-date { margin-top: 17px; }.ed-date > span { font-size: 8px; padding-left: 10px; }
+  .ed-journey { margin: 28px 0; padding: 0 5px; }.ed-journey ol { grid-template-columns: 1fr; gap: 20px; }.ed-journey li, .ed-journey li:nth-child(2), .ed-journey li:last-child { padding: 0 0 0 32px; text-align: left; }
+  .ed-journey li .ed-milestone-node, .ed-journey li:nth-child(2) .ed-milestone-node, .ed-journey li:last-child .ed-milestone-node { top: 2px; left: 0; right: auto; }.ed-journey-track { top: 9px; bottom: 9px; left: 9px; right: auto; width: 1px; height: auto; }.ed-journey-track > div { background: linear-gradient(#65d7ff, #3478ff, #a079ff); }
+  .ed-learning { padding: 18px 4px; gap: 22px 0; }.ed-learning > div { padding: 0 12px; flex-direction: column; align-items: flex-start; gap: 11px; }.ed-learning h3 { font-size: 11px; }.ed-learning p { font-size: 10px; }.ed-feature-icon { width: 38px; height: 41px; }
+  .ed-atmosphere > i, .ed-fragment { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ed-section *, .ed-section *::before, .ed-section *::after { animation: none !important; transition: none !important; }
+  .ed-card:hover, .ed-card:hover .ed-academic-art { translate: none; }.ed-card:hover .ed-degree-icon, .ed-learning > div:hover .ed-feature-icon { transform: none; }
+}
+
+/* Draw in the reading direction of each responsive milestone layout. */
+.ed-journey-track > div { transform: scaleX(0); transform-origin: left; transition: transform 1s ease; }
+.ed-journey[data-reached=true] .ed-journey-track > div { transform: scaleX(1); }
+@media (max-width: 767px) {
+  .ed-journey-track > div { transform: scaleY(0); transform-origin: top; }
+  .ed-journey[data-reached=true] .ed-journey-track > div { transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce) { .ed-journey-track > div { transition: none; } }

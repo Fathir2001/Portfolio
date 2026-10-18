@@ -31,9 +31,9 @@ function App() {
               <Projects />
               <Experience />
               <About />
+              <Skills />
+              <Education />
             </div>
-            <Skills />
-            <Education />
             <Contact />
           </main>
           <footer className="site-footer">

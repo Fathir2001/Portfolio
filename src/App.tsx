@@ -29,9 +29,9 @@ function App() {
               <Hero />
               <div className="studio-section-divider" aria-hidden="true" />
               <Projects />
+              <Experience />
+              <About />
             </div>
-            <Experience />
-            <About />
             <Skills />
             <Education />
             <Contact />

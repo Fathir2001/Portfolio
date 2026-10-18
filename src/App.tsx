@@ -1,4 +1,5 @@
 import { MotionConfig } from "framer-motion";
+import "./studio-background.css";
 import About from "./components/About";
 import BackToTop from "./components/BackToTop";
 import Contact from "./components/Contact";
@@ -20,8 +21,15 @@ function App() {
           </a>
           <Navbar />
           <main id="main" tabIndex={-1}>
-            <Hero />
-            <Projects />
+            <div className="studio-continuum">
+              <div className="studio-fixed-background" aria-hidden="true">
+                <img src={`${import.meta.env.BASE_URL}images/studio-background.webp`} alt="" width={1672} height={941} />
+                <div className="studio-fixed-shade" />
+              </div>
+              <Hero />
+              <div className="studio-section-divider" aria-hidden="true" />
+              <Projects />
+            </div>
             <Experience />
             <About />
             <Skills />

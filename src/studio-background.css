@@ -1,0 +1,40 @@
+/* One viewport-fixed scene spans Hero and Projects. Clip it at their outer
+   boundary, rather than restarting the image at each section. */
+.studio-continuum { position: relative; isolation: isolate; clip-path: inset(0); background: #090f20; }
+.studio-fixed-background { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; background: #090f20; }
+.studio-fixed-background > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
+.studio-fixed-shade { position: absolute; inset: 0; background: linear-gradient(90deg, #03091999, #03091955 35%, transparent 65%), linear-gradient(180deg, #03091944, transparent 25%, transparent 80%, #03091944); }
+.studio-continuum .studio-hero, .studio-continuum .project-collection, .studio-continuum .studio-atmosphere { background: transparent; }
+/* Keep the Hero's particles, lighting, devices and animation untouched. */
+.studio-continuum .studio-space-image, .studio-continuum .studio-space-shade { display: none; }
+/* A tapered beam separates the sections without touching the viewport edges. */
+.studio-section-divider {
+  position: relative;
+  width: min(1040px, 78%);
+  height: 3px;
+  margin: 48px auto;
+  pointer-events: none;
+  border-radius: 50%;
+  background: linear-gradient(90deg, transparent, #3478ff 12%, #8edcff 32%, #effbff 50%, #8edcff 68%, #805bff 88%, transparent);
+  filter: drop-shadow(0 0 5px #65b8ff) drop-shadow(0 0 14px #3478ff99);
+}
+.studio-continuum .studio-section-divider + .project-collection { padding-top: 0; }
+.studio-section-divider::before {
+  content: "";
+  position: absolute;
+  inset: -15px 0;
+  background: radial-gradient(ellipse, #65b8ff55, #3478ff22 45%, transparent 75%);
+}
+.studio-section-divider::after {
+  content: "";
+  position: absolute;
+  inset: 0 20%;
+  background: linear-gradient(90deg, transparent, #e0f6ff, transparent);
+  border-radius: 50%;
+  box-shadow: 0 0 12px #65b8ff66;
+}
+@media (max-width: 760px) {
+  .studio-section-divider { margin-block: 32px; }
+  .studio-fixed-background > img { object-position: 58% center; }
+  .studio-fixed-shade { background: linear-gradient(180deg, #03091955, #03091922 40%, #03091966 65%, #03091944); }
+}

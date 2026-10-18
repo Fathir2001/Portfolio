@@ -52,3 +52,13 @@
   .island-links a[href='#home'] { grid-column: 1 / -1; }
 }
 @media (prefers-reduced-motion: reduce) { .nav-island { transition: none; } .island-links:not([hidden]) { animation: none; } }
+
+/* A restrained glass shell and luminous active rail match the studio panels. */
+.nav-island { border-color: #528deb88; background: linear-gradient(110deg, #0b1a34f2, #060e20ed); box-shadow: inset 0 1px 0 #9ed7ff22, 0 10px 35px #02091a66, 0 0 20px #275ae81a; }
+.nav-island::before { content: ''; position: absolute; top: -1px; left: 15%; right: 15%; height: 1px; background: linear-gradient(90deg, transparent, #7fceff99, #805bff88, transparent); pointer-events: none; }
+.studio-nav-links a { transition: color .2s, background .2s; padding-inline: 7px; }
+.studio-nav-links a[aria-current] { background: linear-gradient(0deg, #3478ff22, transparent 75%); }
+.studio-nav-links a[aria-current]::after { width: 28px; height: 2px; left: calc(50% - 14px); bottom: 3px; background: linear-gradient(90deg, transparent, #86dfff, transparent); border-radius: 2px; }
+.island-monogram { text-shadow: 0 0 18px #3478ff22; }.studio-nav-contact { transition: box-shadow .25s, background .25s; }.studio-nav-contact:hover { box-shadow: inset 0 1px 5px #bbddff77, 0 0 26px #3478ff77; }
+@media (max-width: 1100px) { .island-trigger { width: 44px; height: 44px; flex-basis: 44px; }.island-links a[aria-current] { box-shadow: inset 0 0 0 1px #65b8ff66; background: #3478ff22; } }
+@media (prefers-reduced-motion: reduce) { .studio-nav-links a, .studio-nav-contact { transition: none; } }

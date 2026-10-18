@@ -40,7 +40,7 @@ export default function Navbar() {
       // top spacing and the floating island sits above them.
       const activationLine = Math.min(window.innerHeight * 0.38, 360);
       let current = "home";
-      for (const section of document.querySelectorAll("main > section")) {
+      for (const section of document.querySelectorAll("main section[id]")) {
         if (section.getBoundingClientRect().top <= activationLine) current = section.id;
       }
       const pending = pendingNavigation.current;

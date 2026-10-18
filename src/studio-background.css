@@ -38,3 +38,40 @@
   .studio-fixed-background > img { object-position: 58% center; }
   .studio-fixed-shade { background: linear-gradient(180deg, #03091955, #03091922 40%, #03091966 65%, #03091944); }
 }
+
+/* Every chapter shares one exposure; local effects fade before section edges. */
+.studio-continuum :is(.ex-atmosphere, .ab-atmosphere, .sk-atmosphere, .ed-atmosphere) { background: transparent; mask-image: linear-gradient(transparent, black 15%, black 85%, transparent); }
+.studio-continuum .ct-section { background: transparent; }
+.studio-continuum .studio-section-divider { margin-block: 0; width: min(1100px, 82%); height: 2px; }
+.studio-continuum .studio-section-divider + section { padding-top: clamp(55px, 6vw, 85px); }
+
+/* ViewBox-based progress ring stays concentric at every viewport size. */
+button.back-to-top { width: 50px; height: 50px; min-width: 50px; min-height: 50px; padding: 0; border: 1px solid #77baff88; display: grid; place-items: center; overflow: visible; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); background: linear-gradient(145deg, #246be7, #112b66); box-shadow: 0 5px 22px #020a20aa, inset 0 1px 8px #65b8ff33; }
+.back-to-top-ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); pointer-events: none; }
+.back-to-top-arrow { position: relative; width: 20px; height: 20px; flex-shrink: 0; }
+button.back-to-top:focus-visible { outline: 2px solid #a5dcff; outline-offset: 5px; }
+button.back-to-top:hover { background: linear-gradient(145deg, #3478ff, #1b4091); }
+.site-footer.ct-footer { padding: 48px 0 28px; background: radial-gradient(ellipse at 30% 0, #12326a55, transparent 65%), #070e20; }
+.site-footer > .studio-footer-content { display: block; }
+.studio-footer-main { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.studio-footer-main > div { display: flex; align-items: center; gap: 24px; }
+.studio-footer-main h2 { font-size: clamp(20px, 2.3vw, 30px); line-height: 1.4; letter-spacing: -.6px; font-weight: 600; color: #e9f0ff; }
+.studio-footer-main h2 span { color: #9fbce5; }
+.studio-footer-cta { display: inline-flex; align-items: center; gap: 20px; padding: 15px 20px; border: 1px solid #4c89de; border-radius: 13px; background: #17397166; font-size: 13px; color: #e9f0ff; }
+.studio-footer-links, .studio-footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.studio-footer-links { margin-top: 30px; padding-bottom: 24px; border-bottom: 1px solid #4778bd44; }
+.studio-footer-links nav, .studio-footer-links > div { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+.studio-footer-links a { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; color: #b2c9e9; font-size: 12px; }
+.studio-footer-bottom { margin-top: 22px; }
+.site-footer .studio-footer-bottom p, .studio-footer-bottom > span { color: #93aaca; font-size: 10px; line-height: 1.7; }
+.site-footer a:hover { color: #8edcff; }.site-footer a:focus-visible { outline: 2px solid #83d4ff; outline-offset: 5px; border-radius: 6px; }
+@media (max-width: 767px) {
+  .studio-footer-main, .studio-footer-links, .studio-footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .studio-footer-main > div { gap: 18px; }.studio-footer-links { margin-top: 20px; }
+  .site-footer.ct-footer { padding-bottom: 85px; }
+  button.back-to-top { right: max(14px, env(safe-area-inset-right)); bottom: max(14px, env(safe-area-inset-bottom)); }
+}
+/* Outrank the legacy footer flex row without changing other page containers. */
+.site-footer.ct-footer > .page-width.studio-footer-content { display: block; }
+.site-footer.ct-footer .studio-footer-links { width: 100%; }
+.site-footer.ct-footer { background: radial-gradient(ellipse at 30% 0, #12326a55, transparent 65%), #070e20; }
